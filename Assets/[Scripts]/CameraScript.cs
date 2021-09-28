@@ -7,6 +7,7 @@ public class CameraScript : MonoBehaviour
     public float panSpeed = 1f;
     float zoom = 1f;
     public float minZoom, maxZoom;
+    public TDGrid grid;
 
     Camera camera;
 

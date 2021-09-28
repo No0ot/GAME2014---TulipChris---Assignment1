@@ -21,7 +21,6 @@ public static class Config
 
         int iX = Mathf.RoundToInt(x);
         int iY = Mathf.RoundToInt(y);
-        Debug.Log(iX + " " + iY);
         return new Vector2(iX, iY);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Grid : MonoBehaviour
+public class TDGrid : MonoBehaviour
 {
     public Tile tilePrefab;
     public GridChunk chunkPrefab;
@@ -24,28 +24,15 @@ public class Grid : MonoBehaviour
 
         CreateChunks();
         CreateTiles();
+        GetChunk(new Vector2(2f, 4f)).SetActive(true);
+        Tile starttile = GetTileFromCoordinates(new Vector2(12f, 24f));
+        starttile.SetPathfindingState(PathfindingState.START);
+        starttile.Refresh();
     }
 
     private void Update()
     {
-        if(Input.GetMouseButton(0))
-        {
-            //if (EventSystem.current.IsPointerOverGameObject())
-            //    return;
-            HandleInput();
-        }
-    }
-
-    void HandleInput()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 ray = new Vector2(mousePos.x, mousePos.y);
-        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
-
-        if(hit.collider != null)
-        {
-            GetTile(hit.point);
-        }
+       
     }
 
     void CreateChunks()
@@ -108,8 +95,23 @@ public class Grid : MonoBehaviour
         Vector2 coordinates = Config.GetTileFromPosition(position);
         int iX = Mathf.RoundToInt(coordinates.x);
         int iY = Mathf.RoundToInt(coordinates.y);
-        int index = iX + iY * tileCountX + iY / 2;
-        Debug.Log("touched at" + coordinates.ToString());
+        int index = iX + iY * 25;
         return tileList[index];
+    }
+
+    public Tile GetTileFromCoordinates(Vector2 coordinates)
+    {
+        int iX = Mathf.RoundToInt(coordinates.x);
+        int iY = Mathf.RoundToInt(coordinates.y);
+        int index = iX + iY * 25;
+        return tileList[index];
+    }
+
+    public GridChunk GetChunk(Vector2 coordinate)
+    {
+        int iX = Mathf.RoundToInt(coordinate.x);
+        int iY = Mathf.RoundToInt(coordinate.y);
+        int index = iX + iY * chunkCountX;
+        return chunkList[index];
     }
 }
