@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.3490566, g: 0.30460128, b: 0.30460128, a: 0.5882353}
+  m_Color: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 0.5882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -271,6 +271,13 @@ MonoBehaviour:
   chunkCoordinates: {x: 0, y: 0}
   wallSprite: {fileID: 6852777848621288678, guid: aeb5d90f9f728144d8715535500d1a6a, type: 3}
   pathSprite: {fileID: 3547163559161682696, guid: aeb5d90f9f728144d8715535500d1a6a, type: 3}
+  pathfindingState: 0
+  interactState: 0
+  neighbours:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!61 &277297056350108143
 BoxCollider2D:
   m_ObjectHideFlags: 0

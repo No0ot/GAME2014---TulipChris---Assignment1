@@ -8,7 +8,7 @@ public class GridChunk : MonoBehaviour
 
     Tile[] tileList;
 
-    public bool active = false;
+    public bool owned = false;
 
     private void Awake()
     {
@@ -23,13 +23,13 @@ public class GridChunk : MonoBehaviour
         tile.transform.SetParent(transform, false);
     }
 
-    public void SetActive(bool tempactive)
+    public void SetOwned(bool tempactive)
     {
-        active = tempactive;
+        owned = tempactive;
         foreach(Tile tile in tileList)
         {
-            //Color temp = new Color(0f, 0f, 0f, 0f);
-            tile.activeMask.gameObject.SetActive(false);
+            tile.interactState = InteractState.NONE;
+            tile.Refresh();
         }
     }
 }

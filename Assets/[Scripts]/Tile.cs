@@ -5,8 +5,8 @@ using UnityEngine;
 public enum Directions
 {
     UP,
-    DOWN,
     LEFT,
+    DOWN,
     RIGHT
 }
 
@@ -16,6 +16,14 @@ public enum PathfindingState
     START,
     PATH,
     END
+}
+
+public enum InteractState
+{
+    NONE,
+    GOOD,
+    BAD,
+    UNOWNED
 }
 
 public class Tile : MonoBehaviour
@@ -29,6 +37,10 @@ public class Tile : MonoBehaviour
     public Sprite pathSprite;
 
     public PathfindingState pathfindingState = PathfindingState.NONE;
+    public InteractState interactState = InteractState.NONE;
+
+    [SerializeField]
+    public Tile[] neighbours;
 
     bool active;
 
@@ -57,11 +69,45 @@ public class Tile : MonoBehaviour
             default:
                 break;
         }
+
+        switch (interactState)
+        {
+            case InteractState.NONE:
+                activeMask.color = new Color(0, 0, 0, 0);
+                break;
+            case InteractState.GOOD:
+                activeMask.color = new Color(0, 255, 0,150);
+                break;
+            case InteractState.BAD:
+                activeMask.color = new Color(255, 0, 0, 150);
+                break;
+            case InteractState.UNOWNED:
+                activeMask.color = new Color(80, 80, 80, 150);
+                break;
+            default:
+                break;
+        }
     }
 
     public void SetPathfindingState(PathfindingState state)
     {
         pathfindingState = state;
         Refresh();
+    }
+
+    public Tile GetNeighbour(Directions neighbour_direction)
+    {
+        return neighbours[(int)neighbour_direction];
+    }
+
+    public void SetNeighbour(Directions direction, Tile tile)
+    {
+        neighbours[(int)direction] = tile;
+        tile.neighbours[(int)GetOppositeNeighbour(direction)] = this;
+    }
+
+    public Directions GetOppositeNeighbour(Directions direction)
+    {
+        return (int)direction < 2 ? (direction + 2) : (direction - 2);
     }
 }

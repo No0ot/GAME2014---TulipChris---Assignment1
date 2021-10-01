@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GridEditor : MonoBehaviour
 {
     public TDGrid gameplayGrid;
 
-    bool setPath = true;
-
-    bool buyChunk = true;
+    [SerializeField]
+    bool setPath = false;
+    [SerializeField]
+    bool buyChunk = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,14 +22,14 @@ public class GridEditor : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            //if (EventSystem.current.IsPointerOverGameObject())
-            //    return;
-            HandleInput();
+                HandleInput();
         }
     }
 
     void HandleInput()
     {
+        if (IsPointerOverUIObject())
+            return;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 ray = new Vector2(mousePos.x, mousePos.y);
         RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
@@ -42,7 +44,7 @@ public class GridEditor : MonoBehaviour
     {
         if(edited_tile)
         {
-            if(setPath && edited_tile.chunk.active)
+            if(setPath && edited_tile.chunk.owned)
             {
                 if(edited_tile.pathfindingState == PathfindingState.NONE)
                     edited_tile.SetPathfindingState(PathfindingState.PATH);
@@ -52,8 +54,27 @@ public class GridEditor : MonoBehaviour
 
             if(buyChunk)
             {
-                edited_tile.chunk.SetActive(true);
+                edited_tile.chunk.SetOwned(true);
             }
         }
     }
+
+    public void SetBuyChunk(bool trufal)
+    {
+        buyChunk = trufal;
+    }
+    public void SetBuildPath(bool trufal)
+    {
+        setPath = trufal;
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
 }
+

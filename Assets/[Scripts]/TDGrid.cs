@@ -8,6 +8,7 @@ public class TDGrid : MonoBehaviour
     public Tile tilePrefab;
     public GridChunk chunkPrefab;
 
+    [SerializeField]
     Tile[] tileList;
     GridChunk[] chunkList;
 
@@ -19,20 +20,17 @@ public class TDGrid : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(GameManager.Instance.timer);
         tileCountX = chunkCountX * Config.chunkSize;
         tileCountY = chunkCountY * Config.chunkSize;
 
         CreateChunks();
         CreateTiles();
-        GetChunk(new Vector2(2f, 4f)).SetActive(true);
+
+        GetChunk(new Vector2(2f, 4f)).SetOwned(true);
         Tile starttile = GetTileFromCoordinates(new Vector2(12f, 24f));
         starttile.SetPathfindingState(PathfindingState.START);
         starttile.Refresh();
-    }
-
-    private void Update()
-    {
-       
     }
 
     void CreateChunks()
@@ -68,12 +66,19 @@ public class TDGrid : MonoBehaviour
         Vector2 position;
         position.x = x * Config.tileSize;
         position.y = y * Config.tileSize;
-        //position.x = (x - Config.gridOffsetX) * Config.tileSize;
-        //position.y = (y - Config.gridOffsetY) * Config.tileSize;
 
         Tile newTile = tileList[i] = Instantiate<Tile>(tilePrefab);
         newTile.transform.localPosition = position;
         newTile.coordinates = new Vector2(x, y);
+
+        if(x > 0)
+        {
+            newTile.SetNeighbour(Directions.LEFT, tileList[i - 1]);
+        }
+        if(y > 0)
+        {
+            newTile.SetNeighbour(Directions.DOWN, tileList[i - tileCountX]);
+        }
 
         AddTileToChunk(x, y, newTile);
     }
