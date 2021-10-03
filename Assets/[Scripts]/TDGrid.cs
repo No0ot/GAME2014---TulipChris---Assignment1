@@ -1,3 +1,7 @@
+//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
+// CHRIS TULIP 100 818 050
+//
+// A script for creating and managaging the playable grid. 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

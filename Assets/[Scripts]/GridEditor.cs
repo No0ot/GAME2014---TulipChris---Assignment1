@@ -1,3 +1,7 @@
+//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
+// CHRIS TULIP 100 818 050
+//
+// A script that handles any of the functions that make changes to the grid. It is basically the player controller.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -68,6 +72,7 @@ public class GridEditor : MonoBehaviour
         setPath = trufal;
     }
 
+    //EventSystem.current.IsPointerOverGameObject() was not working properly so i did some research and found this function : https://stackoverflow.com/questions/57010713/unity-ispointerovergameobject-issue
     private bool IsPointerOverUIObject()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);

@@ -1,3 +1,8 @@
+//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
+// CHRIS TULIP 100 818 050
+//
+// A script to handle global gameplay variables such as the game timer and player kills to transfer these variables between scenes.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

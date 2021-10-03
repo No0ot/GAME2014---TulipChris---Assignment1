@@ -1,3 +1,7 @@
+//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
+// CHRIS TULIP 100 818 050
+//
+// A script to handle movement of the camera. Currently does not work as it is using desktop controls and the build mode is currently set to android.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,3 +1,7 @@
+//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
+// CHRIS TULIP 100 818 050
+//
+// A config class to store const variables and static functions.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,9 +19,6 @@ public static class Config
     {
         float x = position.x / tileSize;
         float y = position.y / tileSize;
-
-        //x -= gridOffsetX;
-        //y -= gridOffsetY;
 
         int iX = Mathf.RoundToInt(x);
         int iY = Mathf.RoundToInt(y);
