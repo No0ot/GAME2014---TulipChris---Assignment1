@@ -16,12 +16,25 @@ public class UIManager : MonoBehaviour
         if (trufal)
         {
             GameManager.Instance.unlimited = true;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene("PlayScene");
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene("PlayScene");
             GameManager.Instance.timer = 300;
+        }
+    }
+
+    public void MainMenuButtonPressed()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OnPlayToggle(bool trufal)
+    {
+        if (trufal)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
