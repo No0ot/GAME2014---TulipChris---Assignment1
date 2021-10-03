@@ -35,6 +35,7 @@ public class Tile : MonoBehaviour
 
     public Sprite wallSprite;
     public Sprite pathSprite;
+    public Sprite startSprite;
 
     public PathfindingState pathfindingState = PathfindingState.NONE;
     public InteractState interactState = InteractState.NONE;
@@ -58,7 +59,7 @@ public class Tile : MonoBehaviour
                 tileSprite.sprite = wallSprite;
                 break;
             case PathfindingState.START:
-                tileSprite.sprite = pathSprite;
+                tileSprite.sprite = startSprite;
                 break;
             case PathfindingState.PATH:
                 tileSprite.sprite = pathSprite;

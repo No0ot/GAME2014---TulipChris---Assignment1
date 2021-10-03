@@ -271,6 +271,7 @@ MonoBehaviour:
   chunkCoordinates: {x: 0, y: 0}
   wallSprite: {fileID: 6852777848621288678, guid: aeb5d90f9f728144d8715535500d1a6a, type: 3}
   pathSprite: {fileID: 3547163559161682696, guid: aeb5d90f9f728144d8715535500d1a6a, type: 3}
+  startSprite: {fileID: 3407998654377285062, guid: aeb5d90f9f728144d8715535500d1a6a, type: 3}
   pathfindingState: 0
   interactState: 0
   neighbours:
