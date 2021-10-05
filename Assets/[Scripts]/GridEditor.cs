@@ -50,10 +50,12 @@ public class GridEditor : MonoBehaviour
         {
             if(setPath && edited_tile.chunk.owned)
             {
-                if(edited_tile.pathfindingState == PathfindingState.NONE)
-                    edited_tile.SetPathfindingState(PathfindingState.PATH);
-                else if(edited_tile.pathfindingState == PathfindingState.PATH)
-                    edited_tile.SetPathfindingState(PathfindingState.NONE);
+                //if(edited_tile.pathfindingState == PathfindingState.NONE)
+                //    edited_tile.SetPathfindingState(PathfindingState.PATH);
+                //else if(edited_tile.pathfindingState == PathfindingState.PATH)
+                //    edited_tile.SetPathfindingState(PathfindingState.NONE);
+                DigTile(edited_tile);
+
             }
 
             if(buyChunk)
@@ -70,6 +72,7 @@ public class GridEditor : MonoBehaviour
     public void SetBuildPath(bool trufal)
     {
         setPath = trufal;
+        GetDiggableTiles();
     }
 
     //EventSystem.current.IsPointerOverGameObject() was not working properly so i did some research and found this function : https://stackoverflow.com/questions/57010713/unity-ispointerovergameobject-issue
@@ -80,6 +83,81 @@ public class GridEditor : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
         return results.Count > 0;
+    }
+
+    private void GetDiggableTiles()
+    {
+       if(gameplayGrid.endTile == null)
+       {
+            ShowDigTiles(gameplayGrid.startTile);
+       }
+       else
+       {
+            ShowDigTiles(gameplayGrid.endTile);
+       }
+    }
+
+    private void ShowDigTiles(Tile firstile)
+    {
+        Tile[] neighbours = firstile.neighbours;
+
+        foreach (Tile neighbour in neighbours)
+        {
+            if (neighbour && neighbour.pathfindingState == PathfindingState.NONE && neighbour.interactState != InteractState.UNOWNED)
+            {
+                Tile[] neighbours2 = neighbour.neighbours;
+                bool canshow = true;
+
+                foreach (Tile neighbour2 in neighbours2)
+                {
+                    if (neighbour2)
+                    {
+                        if (neighbour2 == firstile)
+                            continue;
+                        if(neighbour2.pathfindingState != PathfindingState.NONE)
+                            canshow = false;   
+
+                    }
+                }
+                if (canshow)
+                {
+                    neighbour.interactState = InteractState.GOOD;
+                    neighbour.Refresh();
+                }
+            }
+            else
+                continue;
+        }
+    }
+
+    private void DigTile(Tile selected_tile)
+    {
+        if(gameplayGrid.endTile == null)
+        {
+            if (selected_tile.interactState == InteractState.GOOD)
+            {
+                selected_tile.SetPathfindingState(PathfindingState.END);
+                selected_tile.parent = gameplayGrid.startTile;
+                gameplayGrid.endTile = selected_tile;
+                gameplayGrid.ResetTileStates();
+                if (setPath)
+                    GetDiggableTiles();
+            }
+        }
+        else
+        {
+            if (selected_tile.interactState == InteractState.GOOD)
+            {
+                selected_tile.SetPathfindingState(PathfindingState.END);
+                selected_tile.parent = gameplayGrid.endTile;
+                selected_tile.parent.SetPathfindingState(PathfindingState.PATH);
+                gameplayGrid.endTile = selected_tile;
+
+                gameplayGrid.ResetTileStates();
+                if (setPath)
+                    GetDiggableTiles();
+            }
+        }
     }
 }
 

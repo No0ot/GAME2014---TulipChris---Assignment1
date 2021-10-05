@@ -25,6 +25,8 @@ public class GridChunk : MonoBehaviour
         tile.chunk = this;
         tile.chunkCoordinates = coordinates;
         tile.transform.SetParent(transform, false);
+        tile.interactState = InteractState.UNOWNED;
+        tile.Refresh();
     }
 
     public void SetOwned(bool tempactive)

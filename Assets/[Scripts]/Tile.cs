@@ -40,6 +40,7 @@ public class Tile : MonoBehaviour
     public Sprite wallSprite;
     public Sprite pathSprite;
     public Sprite startSprite;
+    public Sprite endSprite;
 
     public PathfindingState pathfindingState = PathfindingState.NONE;
     public InteractState interactState = InteractState.NONE;
@@ -47,9 +48,16 @@ public class Tile : MonoBehaviour
     [SerializeField]
     public Tile[] neighbours;
 
+    public Tile parent;
+
     bool active;
 
     SpriteRenderer tileSprite;
+
+    public Color noneColor;
+    public Color goodColor;
+    public Color badColor;
+    public Color unownedColor;
 
     private void Awake()
     {
@@ -69,7 +77,7 @@ public class Tile : MonoBehaviour
                 tileSprite.sprite = pathSprite;
                 break;
             case PathfindingState.END:
-                tileSprite.sprite = pathSprite;
+                tileSprite.sprite = endSprite;
                 break;
             default:
                 break;
@@ -78,16 +86,16 @@ public class Tile : MonoBehaviour
         switch (interactState)
         {
             case InteractState.NONE:
-                activeMask.color = new Color(0, 0, 0, 0);
+                activeMask.color = noneColor;
                 break;
             case InteractState.GOOD:
-                activeMask.color = new Color(0, 255, 0,150);
+                activeMask.color = goodColor;
                 break;
             case InteractState.BAD:
-                activeMask.color = new Color(255, 0, 0, 150);
+                activeMask.color = badColor;
                 break;
             case InteractState.UNOWNED:
-                activeMask.color = new Color(80, 80, 80, 150);
+                activeMask.color = unownedColor;
                 break;
             default:
                 break;

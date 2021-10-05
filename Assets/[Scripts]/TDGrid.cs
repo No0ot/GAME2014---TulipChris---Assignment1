@@ -12,9 +12,11 @@ public class TDGrid : MonoBehaviour
     public Tile tilePrefab;
     public GridChunk chunkPrefab;
 
-    [SerializeField]
     Tile[] tileList;
     GridChunk[] chunkList;
+
+    public Tile startTile;
+    public Tile endTile = null;
 
     int tileCountX;
     int tileCountY;
@@ -32,9 +34,9 @@ public class TDGrid : MonoBehaviour
         CreateTiles();
 
         GetChunk(new Vector2(2f, 4f)).SetOwned(true);
-        Tile starttile = GetTileFromCoordinates(new Vector2(12f, 24f));
-        starttile.SetPathfindingState(PathfindingState.START);
-        starttile.Refresh();
+        startTile = GetTileFromCoordinates(new Vector2(12f, 24f));
+        startTile.SetPathfindingState(PathfindingState.START);
+        startTile.Refresh();
     }
 
     void CreateChunks()
@@ -122,5 +124,15 @@ public class TDGrid : MonoBehaviour
         int iY = Mathf.RoundToInt(coordinate.y);
         int index = iX + iY * chunkCountX;
         return chunkList[index];
+    }
+
+    public void ResetTileStates()
+    {
+        foreach(Tile tile in tileList)
+        {
+            if (tile.interactState != InteractState.UNOWNED)
+                tile.interactState = InteractState.NONE;
+            tile.Refresh();
+        }
     }
 }
