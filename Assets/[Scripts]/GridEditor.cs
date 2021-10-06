@@ -50,12 +50,7 @@ public class GridEditor : MonoBehaviour
         {
             if(setPath && edited_tile.chunk.owned)
             {
-                //if(edited_tile.pathfindingState == PathfindingState.NONE)
-                //    edited_tile.SetPathfindingState(PathfindingState.PATH);
-                //else if(edited_tile.pathfindingState == PathfindingState.PATH)
-                //    edited_tile.SetPathfindingState(PathfindingState.NONE);
                 DigTile(edited_tile);
-
             }
 
             if(buyChunk)
@@ -137,7 +132,7 @@ public class GridEditor : MonoBehaviour
             if (selected_tile.interactState == InteractState.GOOD)
             {
                 selected_tile.SetPathfindingState(PathfindingState.END);
-                selected_tile.parent = gameplayGrid.startTile;
+                gameplayGrid.startTile.pathNext = selected_tile;
                 gameplayGrid.endTile = selected_tile;
                 gameplayGrid.ResetTileStates();
                 if (setPath)
@@ -149,8 +144,8 @@ public class GridEditor : MonoBehaviour
             if (selected_tile.interactState == InteractState.GOOD)
             {
                 selected_tile.SetPathfindingState(PathfindingState.END);
-                selected_tile.parent = gameplayGrid.endTile;
-                selected_tile.parent.SetPathfindingState(PathfindingState.PATH);
+                gameplayGrid.endTile.pathNext = selected_tile;
+                gameplayGrid.endTile.SetPathfindingState(PathfindingState.PATH);
                 gameplayGrid.endTile = selected_tile;
 
                 gameplayGrid.ResetTileStates();

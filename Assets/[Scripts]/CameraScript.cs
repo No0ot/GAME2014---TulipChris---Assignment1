@@ -36,6 +36,8 @@ public class CameraScript : MonoBehaviour
         float yDelta = Input.GetAxis("Vertical");
         if (xDelta != 0f || yDelta != 0f)
             AdjustPosition(xDelta, yDelta);
+
+        TouchInput();
     }
 
     void AdjustZoom(float delta)
@@ -54,5 +56,18 @@ public class CameraScript : MonoBehaviour
 
         position += new Vector3(direction.x * panSpeed, direction.y * panSpeed, 0f);
         transform.localPosition = position;
+    }
+
+    void TouchInput()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch temp = Input.GetTouch(0);
+
+            if(temp.phase == TouchPhase.Moved)
+            {
+                AdjustPosition(-temp.deltaPosition.x, -temp.deltaPosition.y);
+            }
+        }
     }
 }

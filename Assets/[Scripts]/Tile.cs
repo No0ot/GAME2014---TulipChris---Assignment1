@@ -48,7 +48,7 @@ public class Tile : MonoBehaviour
     [SerializeField]
     public Tile[] neighbours;
 
-    public Tile parent;
+    public Tile pathNext;
 
     bool active;
 
