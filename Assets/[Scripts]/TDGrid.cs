@@ -135,4 +135,9 @@ public class TDGrid : MonoBehaviour
             tile.Refresh();
         }
     }
+
+    public Tile[] GetTileList()
+    {
+        return tileList;
+    }
 }

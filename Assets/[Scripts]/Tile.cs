@@ -50,7 +50,7 @@ public class Tile : MonoBehaviour
 
     public Tile pathNext;
 
-    bool active;
+    public bool occupied;
 
     SpriteRenderer tileSprite;
 

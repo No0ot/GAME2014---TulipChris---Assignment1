@@ -10,15 +10,25 @@ using UnityEngine.EventSystems;
 public class GridEditor : MonoBehaviour
 {
     public TDGrid gameplayGrid;
+    TowerFactory towerFactory;
 
     [SerializeField]
     bool setPath = false;
     [SerializeField]
     bool buyChunk = false;
+
+    bool buyTower = false;
+
+    TowerType selectTower;
+    public bool basicTowerSelect = true;
+    public bool rapidTowerSelect = false;
+    public bool quakeTowerSelect = false;
+    public bool missleTowerSelect = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        towerFactory = GetComponent<TowerFactory>();
+        selectTower = TowerType.BASIC;
     }
 
     // Update is called once per frame
@@ -57,18 +67,53 @@ public class GridEditor : MonoBehaviour
             {
                 edited_tile.chunk.SetOwned(true);
             }
+
+            if(buyTower)
+            {
+                BuyTower(edited_tile);
+            }
         }
     }
 
     public void SetBuyChunk(bool trufal)
     {
+        gameplayGrid.ResetTileStates();
         buyChunk = trufal;
     }
     public void SetBuildPath(bool trufal)
     {
+        gameplayGrid.ResetTileStates();
         setPath = trufal;
         GetDiggableTiles();
     }
+    public void SetBuyTower(bool trufal)
+    {
+        gameplayGrid.ResetTileStates();
+        buyTower = trufal;
+        ShowBuildTiles();
+    }
+    // I hate that im doing this but I want to use toggles for this and cant think of another option at the moment
+    public void setTower1(bool trufal)
+    {
+        basicTowerSelect = trufal;
+        selectTower = TowerType.BASIC;
+    }
+    public void setTower2(bool trufal)
+    {
+        rapidTowerSelect = trufal;
+        selectTower = TowerType.RAPID;
+    }
+    public void setTower3(bool trufal)
+    {
+        quakeTowerSelect = trufal;
+        selectTower = TowerType.QUAKE;
+    }
+    public void setTower4(bool trufal)
+    {
+        missleTowerSelect = trufal;
+        selectTower = TowerType.MISSLE;
+    }
+
 
     //EventSystem.current.IsPointerOverGameObject() was not working properly so i did some research and found this function : https://stackoverflow.com/questions/57010713/unity-ispointerovergameobject-issue
     private bool IsPointerOverUIObject()
@@ -98,7 +143,7 @@ public class GridEditor : MonoBehaviour
 
         foreach (Tile neighbour in neighbours)
         {
-            if (neighbour && neighbour.pathfindingState == PathfindingState.NONE && neighbour.interactState != InteractState.UNOWNED)
+            if (neighbour && neighbour.pathfindingState == PathfindingState.NONE && neighbour.interactState != InteractState.UNOWNED && !neighbour.occupied)
             {
                 Tile[] neighbours2 = neighbour.neighbours;
                 bool canshow = true;
@@ -152,6 +197,28 @@ public class GridEditor : MonoBehaviour
                 if (setPath)
                     GetDiggableTiles();
             }
+        }
+    }
+
+    private void ShowBuildTiles()
+    {
+        foreach(Tile tile in gameplayGrid.GetTileList())
+        {
+            if(tile.interactState != InteractState.UNOWNED && tile.pathfindingState == PathfindingState.NONE)
+            {
+                tile.interactState = InteractState.GOOD;
+                tile.Refresh();
+            }
+        }
+    }
+
+    private void BuyTower(Tile selected_tile)
+    {
+        if (selected_tile.interactState == InteractState.GOOD)
+        {
+            GameObject tempTower = towerFactory.CreateTower(selectTower);
+            tempTower.transform.position = selected_tile.transform.position;
+            selected_tile.occupied = true;
         }
     }
 }
