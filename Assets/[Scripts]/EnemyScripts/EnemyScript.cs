@@ -30,11 +30,8 @@ public class EnemyScript : MonoBehaviour
 
     private void Move()
     {
-
         float distCovered = (Time.time - startTime) * moveSpeed;
-
         float fractionOfJourney = distCovered / journeyLength;
-
         transform.position = Vector3.Lerp(currentTile.transform.position, targetTile.transform.position, fractionOfJourney);
     }
 
