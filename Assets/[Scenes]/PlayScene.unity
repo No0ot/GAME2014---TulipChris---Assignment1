@@ -771,6 +771,7 @@ GameObject:
   m_Component:
   - component: {fileID: 325476107}
   - component: {fileID: 325476106}
+  - component: {fileID: 325476108}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -791,10 +792,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayGrid: {fileID: 1492243287}
-  basicEnemyPrefab: {fileID: 631198986467924471, guid: dc85bb09d3d3f0846892dd12a6753dae, type: 3}
-  armoredEnemyPrefab: {fileID: 631198986467924471, guid: 6455521af91fb23408030afbceccdb71, type: 3}
-  fastEnemyPrefab: {fileID: 631198986467924471, guid: 4eeeb41a276986343aa6764699c0cca9, type: 3}
-  tankEnemyPrefab: {fileID: 631198986467924471, guid: f05bc2b840abac845b3f78ae89c9c77b, type: 3}
+  spawnEnemy: 0
+  enemyType: 0
 --- !u!4 &325476107
 Transform:
   m_ObjectHideFlags: 0
@@ -809,6 +808,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &325476108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325476105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422f1b87dbbd7704fa623ad4fa572f67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicEnemyPrefab: {fileID: 631198986467924471, guid: dc85bb09d3d3f0846892dd12a6753dae, type: 3}
+  armoredEnemyPrefab: {fileID: 631198986467924471, guid: 6455521af91fb23408030afbceccdb71, type: 3}
+  fastEnemyPrefab: {fileID: 631198986467924471, guid: 4eeeb41a276986343aa6764699c0cca9, type: 3}
+  tankEnemyPrefab: {fileID: 631198986467924471, guid: f05bc2b840abac845b3f78ae89c9c77b, type: 3}
 --- !u!1 &385758524
 GameObject:
   m_ObjectHideFlags: 0
@@ -15787,7 +15802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1668370537
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15855,10 +15870,10 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1893011353}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnPlayToggle
-        m_Mode: 0
+      - m_Target: {fileID: 325476106}
+        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
+        m_MethodName: SpawnEnemy
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

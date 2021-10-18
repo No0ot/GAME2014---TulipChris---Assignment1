@@ -6,40 +6,57 @@ public class EnemyManager : MonoBehaviour
 {
     public TDGrid gameplayGrid;
 
-    public GameObject basicEnemyPrefab;
-    public GameObject armoredEnemyPrefab;
-    public GameObject fastEnemyPrefab;
-    public GameObject tankEnemyPrefab;
+    List<GameObject> enemyList;
 
-    List<GameObject> basicEnemyList;
-    List<GameObject> armoredEnemyList;
-    List<GameObject> fastEnemyList;
-    List<GameObject> tankEnemyList;
+    public bool spawnEnemy = false;
 
-    int maxBasicEnemies = 20;
-    int maxArmoredEnemies = 20;
-    int maxFastEnemies = 20;
-    int maxTankEnemies = 5;
+    private EnemyFactory factory;
+
+    public EnemyType enemyType;
+
     // Start is called before the first frame update
     void Start()
     {
-        InstantiateEnemy(basicEnemyPrefab, maxBasicEnemies, basicEnemyList);
-        InstantiateEnemy(armoredEnemyPrefab, maxArmoredEnemies, armoredEnemyList);
-        InstantiateEnemy(fastEnemyPrefab, maxFastEnemies, fastEnemyList);
-        InstantiateEnemy(tankEnemyPrefab, maxTankEnemies, tankEnemyList);
+        enemyList = new List<GameObject>();
+        factory = GetComponent<EnemyFactory>();
     }
 
-    void InstantiateEnemy(GameObject prefab, int maxnum, List<GameObject> list)
-    {
-        list = new List<GameObject>(maxnum);
+   private GameObject AddEnemy()
+   {
+       GameObject newEnemy = factory.CreateEnemy(enemyType);
+       newEnemy.transform.SetParent(transform);
+        enemyList.Add(newEnemy);
+       
+       return newEnemy;
+   }
 
-        for (int i = 0; i < maxnum; i++)
+   public GameObject GetEnemy()
+   {
+       foreach (GameObject enemy in enemyList)
+       {
+           if (!enemy.activeInHierarchy)
+           {
+               return enemy;
+           }
+       }
+       return AddEnemy();
+   }
+
+    public void SpawnEnemy()
+    {
+        if (spawnEnemy)
         {
-            GameObject newEnemy = Instantiate(prefab);
-            newEnemy.transform.SetParent(transform);
-            newEnemy.SetActive(false);
-            newEnemy.GetComponent<EnemyScript>().targetTile = gameplayGrid.startTile;
-            list.Add(newEnemy);
+            GameObject temp = GetEnemy();
+            temp.transform.position = gameplayGrid.startTile.transform.position;
+            temp.GetComponent<EnemyScript>().currentTile = gameplayGrid.startTile;
+            temp.GetComponent<EnemyScript>().targetTile = gameplayGrid.startTile.pathNext;
+            temp.SetActive(true);
+            spawnEnemy = false;
         }
+    }
+
+    private void Update()
+    {
+        SpawnEnemy();
     }
 }
