@@ -14,6 +14,7 @@ public enum TowerType
 public class TowerScript : MonoBehaviour
 {
     public float fireRate;
+    public float fireRateCounter;
     public float range;
 
     public GameObject projectile;
@@ -21,55 +22,58 @@ public class TowerScript : MonoBehaviour
    
 
     public GameObject targetEnemy;
+    List<GameObject> enemysInRange;
     public ProjectileManager projectileManager;
 
     private void Start()
     {
         targetEnemy = null;
-
-        switch(type)
-        {
-            case TowerType.BASIC:
-               // projectileManager = 
-                break;
-            case TowerType.RAPID:
-                break;
-            case TowerType.MISSLE:
-                break;
-        }
+        enemysInRange = new List<GameObject>();
     }
 
     private void Update()
     {
+        if(fireRateCounter <= fireRate)
+            fireRateCounter += Time.deltaTime;
         if (!targetEnemy)
             FindEnemy();
         else
             Shoot();
-
     }
 
     private void FindEnemy()
     {
-        EnemyScript[] enemies = FindObjectsOfType<EnemyScript>();
-
-        foreach(EnemyScript enemy in enemies)
+        if(enemysInRange.Count > 0)
         {
-            if(targetEnemy)
-            {
-                float distanceT = Vector3.Distance(transform.gameObject.transform.position, targetEnemy.transform.position);
-                float distanceE = Vector3.Distance(transform.gameObject.transform.position, enemy.transform.position);
-
-                if(distanceE > distanceT)
-                    targetEnemy = enemy.gameObject;
-            }
-            targetEnemy = enemy.gameObject;
+            targetEnemy = enemysInRange[0];
         }
+        //EnemyScript[] enemies = FindObjectsOfType<EnemyScript>();
+        //
+        //foreach(EnemyScript enemy in enemies)
+        //{
+        //    if(targetEnemy)
+        //    {
+        //        float distanceT = Vector3.Distance(transform.gameObject.transform.position, targetEnemy.transform.position);
+        //        float distanceE = Vector3.Distance(transform.gameObject.transform.position, enemy.transform.position);
+        //
+        //        if(distanceE > distanceT)
+        //            targetEnemy = enemy.gameObject;
+        //    }
+        //    //targetEnemy = enemy.gameObject;
+        //}
                 
     }
 
     private void Shoot()
     {
-
+        if (fireRateCounter >= fireRate)
+        {
+            GameObject tempProj = projectileManager.GetProjectile();
+            tempProj.transform.position = transform.position;
+            tempProj.GetComponent<ProjectileScript>().targetEnemy = targetEnemy;
+            tempProj.SetActive(true);
+            fireRateCounter = 0f;
+        }
     }
 
     private void OnDrawGizmos()
@@ -79,12 +83,11 @@ public class TowerScript : MonoBehaviour
 
     }
 
-    private void OnTrigger2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            if (!targetEnemy)
-                targetEnemy = collision.gameObject;
+            enemysInRange.Add(collision.gameObject);
             //Debug.Log("enter");
         }
     }
@@ -95,6 +98,7 @@ public class TowerScript : MonoBehaviour
         {
             if (collision.gameObject == targetEnemy)
                 targetEnemy = null;
+            enemysInRange.Remove(collision.gameObject);
             
             Debug.Log("exit");
         }

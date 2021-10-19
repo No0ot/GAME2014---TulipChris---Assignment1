@@ -97,10 +97,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3191cbaca64335c4dafd9d7d7ee2ae40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0
+  fireRate: 1
+  fireRateCounter: 0
   range: 3
   projectile: {fileID: 540511618943382139, guid: cd9865ceb77dd5144b5c95f9bd41a9da, type: 3}
   type: 0
+  targetEnemy: {fileID: 0}
+  enemysInRange: []
+  projectileManager: {fileID: 0}
 --- !u!58 &5531213381318830772
 CircleCollider2D:
   m_ObjectHideFlags: 0

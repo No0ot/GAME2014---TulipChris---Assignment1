@@ -25,7 +25,8 @@ public class EnemyManager : MonoBehaviour
    {
        GameObject newEnemy = factory.CreateEnemy(enemyType);
        newEnemy.transform.SetParent(transform);
-        enemyList.Add(newEnemy);
+       newEnemy.SetActive(false);
+       enemyList.Add(newEnemy);
        
        return newEnemy;
    }

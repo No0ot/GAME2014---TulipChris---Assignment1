@@ -11,32 +11,62 @@ public enum ProjType
 
 public class ProjectileScript : MonoBehaviour
 {
-    GameObject targetEnemy;
+    public GameObject targetEnemy = null;
     public float moveSpeed;
     public int damage;
 
-    private float journeyLength;
+    public float journeyLength;
     private float startTime;
-    Vector3 startPosition;
+    public Vector3 startPosition;
+    public Vector3 endPosition;
 
 
+    private void Update()
+    {
+        Move();
+        if (targetEnemy)
+        {
+            if (!targetEnemy.activeSelf)
+                targetEnemy = null;
+        }
+    }
     private void OnEnable()
     {
         startPosition = transform.position;
+        startTime = Time.time;
+        
+    }
+
+    private void OnDisable()
+    {
+        targetEnemy = null;
     }
     private void Move()
     {
+        if (targetEnemy)
+            endPosition = targetEnemy.transform.position;
+
+        journeyLength = Vector3.Distance(transform.position, endPosition);
         float distCovered = (Time.time - startTime) * moveSpeed;
         float fractionOfJourney = distCovered / journeyLength;
-        transform.position = Vector3.Lerp(startPosition, targetEnemy.transform.position, fractionOfJourney);
+        transform.position = Vector3.Lerp(startPosition, endPosition, fractionOfJourney);
+
+        if(!targetEnemy)
+        {
+            float distance = Vector3.Distance(transform.position, endPosition);
+            if (distance < 0.1f)
+            {
+                gameObject.SetActive(false);
+            }
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.collider.CompareTag("Enemy"))
+        if(collision.CompareTag("Enemy"))
         {
+            collision.gameObject.GetComponent<EnemyScript>().currentHealth = collision.gameObject.GetComponent<EnemyScript>().currentHealth - damage;
             gameObject.SetActive(false);
-            Debug.Log("hit");
         }
     }
 }

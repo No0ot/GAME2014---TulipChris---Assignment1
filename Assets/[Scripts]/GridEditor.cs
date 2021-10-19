@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 public class GridEditor : MonoBehaviour
 {
     public TDGrid gameplayGrid;
-    TowerFactory towerFactory;
+    public TowerManager towerManager;
 
     [SerializeField]
     bool setPath = false;
@@ -27,7 +27,6 @@ public class GridEditor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        towerFactory = GetComponent<TowerFactory>();
         selectTower = TowerType.BASIC;
     }
 
@@ -204,7 +203,7 @@ public class GridEditor : MonoBehaviour
     {
         foreach(Tile tile in gameplayGrid.GetTileList())
         {
-            if(tile.interactState != InteractState.UNOWNED && tile.pathfindingState == PathfindingState.NONE)
+            if(tile.interactState != InteractState.UNOWNED && tile.pathfindingState == PathfindingState.NONE && !tile.occupied)
             {
                 tile.interactState = InteractState.GOOD;
                 tile.Refresh();
@@ -216,7 +215,7 @@ public class GridEditor : MonoBehaviour
     {
         if (selected_tile.interactState == InteractState.GOOD)
         {
-            GameObject tempTower = towerFactory.CreateTower(selectTower);
+            GameObject tempTower = towerManager.GetTower(selectTower);
             tempTower.transform.position = selected_tile.transform.position;
             selected_tile.occupied = true;
         }

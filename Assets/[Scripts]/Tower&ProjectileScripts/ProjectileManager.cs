@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
 {
-    public TDGrid gameplayGrid;
-
     List<GameObject> projectileList;
-
     private ProjectileFactory factory;
 
     public ProjType projType;
@@ -21,11 +18,12 @@ public class ProjectileManager : MonoBehaviour
 
     private GameObject AddProjectile()
     {
-        GameObject newEnemy = factory.CreateProjectile(projType);
-        newEnemy.transform.SetParent(transform);
-        projectileList.Add(newEnemy);
+        GameObject newprojectile = factory.CreateProjectile(projType);
+        newprojectile.transform.SetParent(transform);
+        newprojectile.SetActive(false);
+        projectileList.Add(newprojectile);
 
-        return newEnemy;
+        return newprojectile;
     }
 
     public GameObject GetProjectile()

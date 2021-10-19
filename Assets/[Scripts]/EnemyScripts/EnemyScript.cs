@@ -5,10 +5,11 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     public EnemyType type;
-    public Tile targetTile;
-    public Tile currentTile;
+    public Tile targetTile = null;
+    public Tile currentTile = null;
 
-    public int health;
+    public int maxHealth;
+    public int currentHealth;
     public bool armored;
     public float moveSpeed;
 
@@ -20,10 +21,18 @@ public class EnemyScript : MonoBehaviour
     {
         startTime = Time.time;
         journeyLength = Vector3.Distance(currentTile.transform.position, targetTile.transform.position);
+        currentHealth = maxHealth;
+    }
+    private void OnEnable()
+    {
+        startTime = Time.time;
+        //journeyLength = Vector3.Distance(currentTile.transform.position, targetTile.transform.position);
+        currentHealth = maxHealth;
     }
     // Update is called once per frame
     void Update()
     {
+        CheckHealth();
         CheckDistance();
         Move();
     }
@@ -38,7 +47,7 @@ public class EnemyScript : MonoBehaviour
     private void CheckDistance()
     {
         float distance = Vector3.Distance(transform.position, targetTile.transform.position);
-        if (distance  < 0.01f)
+        if (distance < 0.01f)
         {
             if (targetTile.pathfindingState == PathfindingState.END)
             {
@@ -51,6 +60,14 @@ public class EnemyScript : MonoBehaviour
                 startTime = Time.time;
                 journeyLength = Vector3.Distance(currentTile.transform.position, targetTile.transform.position);
             }
+        }
+    }
+
+    private void CheckHealth()
+    {
+        if (currentHealth <= 0)
+        {
+            gameObject.SetActive(false);
         }
     }
 }

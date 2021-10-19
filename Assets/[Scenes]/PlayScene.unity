@@ -3575,15 +3575,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863075031}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -15.193215, y: -28.598223, z: 2.8522277}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1524181866}
   - {fileID: 1644512582}
   - {fileID: 1820996603}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 1887904204}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &916913110
 GameObject:
@@ -16105,7 +16105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca852e562822f94e85b2efbab89c946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameplayGrid: {fileID: 1492243287}
   projType: 0
 --- !u!1 &1538025355
 GameObject:
@@ -16450,7 +16449,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca852e562822f94e85b2efbab89c946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameplayGrid: {fileID: 1492243287}
   projType: 1
 --- !u!1 &1668370536
 GameObject:
@@ -16919,7 +16917,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca852e562822f94e85b2efbab89c946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameplayGrid: {fileID: 1492243287}
   projType: 2
 --- !u!1 &1841399553
 GameObject:
@@ -17378,6 +17375,70 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860697151}
   m_CullTransparentMesh: 1
+--- !u!1 &1887904201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887904204}
+  - component: {fileID: 1887904203}
+  - component: {fileID: 1887904202}
+  m_Layer: 0
+  m_Name: TowerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1887904202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887904201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 436e487bdbb8bea43a39787968129743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicTowerPrefab: {fileID: 5937580380984148473, guid: 7e112c595cf94aa41ad46339bc27018c, type: 3}
+  rapidTowerPrefab: {fileID: 5937580380984148473, guid: ca4b6fef40927ec4dadc92ce72ad7950, type: 3}
+  quakeTowerPrefab: {fileID: 5937580380984148473, guid: eca831129a0f01249a32541c2f6e5834, type: 3}
+  missleTowerPrefab: {fileID: 5937580380984148473, guid: bafbf6f83bce8ad419662532fd9dd826, type: 3}
+--- !u!114 &1887904203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887904201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c6b5e7ae2be824db7bb0f3eca1923f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicProjManager: {fileID: 1524181868}
+  rapidProjManager: {fileID: 1644512584}
+  missleProjManager: {fileID: 1820996605}
+--- !u!4 &1887904204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887904201}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.193215, y: 28.598223, z: -2.8522277}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 863075032}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1893011352
 GameObject:
   m_ObjectHideFlags: 0
@@ -17569,7 +17630,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2025267635}
   - component: {fileID: 2025267636}
-  - component: {fileID: 2025267637}
   m_Layer: 0
   m_Name: GridEditor
   m_TagString: Untagged
@@ -17604,28 +17664,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayGrid: {fileID: 1492243287}
+  towerManager: {fileID: 1887904203}
   setPath: 0
   buyChunk: 0
   basicTowerSelect: 0
   rapidTowerSelect: 0
   quakeTowerSelect: 0
   missleTowerSelect: 0
---- !u!114 &2025267637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025267634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 436e487bdbb8bea43a39787968129743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicTowerPrefab: {fileID: 5937580380984148473, guid: 7e112c595cf94aa41ad46339bc27018c, type: 3}
-  rapidTowerPrefab: {fileID: 5937580380984148473, guid: ca4b6fef40927ec4dadc92ce72ad7950, type: 3}
-  quakeTowerPrefab: {fileID: 5937580380984148473, guid: eca831129a0f01249a32541c2f6e5834, type: 3}
-  missleTowerPrefab: {fileID: 5937580380984148473, guid: bafbf6f83bce8ad419662532fd9dd826, type: 3}
 --- !u!1 &2088706687
 GameObject:
   m_ObjectHideFlags: 0
