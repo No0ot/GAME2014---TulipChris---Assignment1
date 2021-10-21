@@ -19,6 +19,8 @@ public class GameplayUIManager : MonoBehaviour
     [SerializeField]
     private GameObject[] livesSprite;
 
+    public DetailsPanel detailsPanel;
+
     private void Awake()
     {
         instance = this;

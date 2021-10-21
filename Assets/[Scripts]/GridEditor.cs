@@ -71,6 +71,14 @@ public class GridEditor : MonoBehaviour
             {
                 BuyTower(edited_tile);
             }
+
+            if(!setPath && !buyChunk && !buyTower && edited_tile.occupied)
+            {
+                GameplayUIManager.Instance.detailsPanel.gameObject.SetActive(true);
+                GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(edited_tile.occupiedTowerReference, DetailsPanelSetting.UPGRADE);
+            }
+            else if(!setPath && !buyChunk && !buyTower)
+                GameplayUIManager.Instance.detailsPanel.gameObject.SetActive(false);
         }
     }
 
@@ -81,36 +89,57 @@ public class GridEditor : MonoBehaviour
     }
     public void SetBuildPath(bool trufal)
     {
-        gameplayGrid.ResetTileStates();
-        setPath = trufal;
-        GetDiggableTiles();
+        if (trufal)
+        {
+            gameplayGrid.ResetTileStates();
+            setPath = trufal;
+            GetDiggableTiles();
+        }
+        else
+        {
+            gameplayGrid.ResetTileStates();
+            setPath = trufal;
+        }
     }
     public void SetBuyTower(bool trufal)
     {
-        gameplayGrid.ResetTileStates();
-        buyTower = trufal;
-        ShowBuildTiles();
+        if (trufal)
+        {
+            gameplayGrid.ResetTileStates();
+            buyTower = trufal;
+            ShowBuildTiles();
+            GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
+        }
+        else
+        {
+            gameplayGrid.ResetTileStates();
+            buyTower = trufal;
+        }
     }
     // I hate that im doing this but I want to use toggles for this and cant think of another option at the moment
     public void setTower1(bool trufal)
     {
         basicTowerSelect = trufal;
         selectTower = TowerType.BASIC;
+        GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
     public void setTower2(bool trufal)
     {
         rapidTowerSelect = trufal;
         selectTower = TowerType.RAPID;
+        GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
     public void setTower3(bool trufal)
     {
         quakeTowerSelect = trufal;
         selectTower = TowerType.QUAKE;
+        GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
     public void setTower4(bool trufal)
     {
         missleTowerSelect = trufal;
         selectTower = TowerType.MISSLE;
+        GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
 
 
@@ -218,6 +247,7 @@ public class GridEditor : MonoBehaviour
             GameObject tempTower = towerManager.GetTower(selectTower);
             tempTower.transform.position = selected_tile.transform.position;
             selected_tile.occupied = true;
+            selected_tile.occupiedTowerReference = tempTower;
             gameplayGrid.ResetTileStates();
             ShowBuildTiles();
         }

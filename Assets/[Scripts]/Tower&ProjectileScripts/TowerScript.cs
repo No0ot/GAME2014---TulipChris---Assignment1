@@ -16,11 +16,15 @@ public class TowerScript : MonoBehaviour
     public float fireRate;
     public float fireRateCounter;
     public float range;
+    public int damage;
 
-    public GameObject projectile;
     public TowerType type;
     public int level = 1;
     public int kills;
+    
+    public int goldCost;
+    public int ironCost;
+    public int steelCost;
 
     public GameObject targetEnemy;
     List<GameObject> enemysInRange;
@@ -72,7 +76,7 @@ public class TowerScript : MonoBehaviour
             GameObject tempProj = projectileManager.GetProjectile();
             tempProj.transform.position = transform.position;
             tempProj.GetComponent<ProjectileScript>().targetEnemy = targetEnemy;
-            tempProj.GetComponent<ProjectileScript>().damage *= level;
+            tempProj.GetComponent<ProjectileScript>().damage = damage * level;
             tempProj.GetComponent<ProjectileScript>().towerOwner = this;
             tempProj.SetActive(true);
             fireRateCounter = 0f;

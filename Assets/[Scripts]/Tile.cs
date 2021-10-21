@@ -59,6 +59,8 @@ public class Tile : MonoBehaviour
     public Color badColor;
     public Color unownedColor;
 
+    public GameObject occupiedTowerReference;
+
     private void Awake()
     {
         tileSprite = GetComponent<SpriteRenderer>();

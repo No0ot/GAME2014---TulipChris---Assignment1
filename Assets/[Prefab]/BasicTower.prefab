@@ -99,11 +99,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 1
   fireRateCounter: 0
-  range: 3
-  projectile: {fileID: 540511618943382139, guid: cd9865ceb77dd5144b5c95f9bd41a9da, type: 3}
+  range: 4
+  damage: 7
   type: 0
+  level: 1
+  kills: 0
+  goldCost: 20
+  ironCost: 0
+  steelCost: 0
   targetEnemy: {fileID: 0}
-  enemysInRange: []
   projectileManager: {fileID: 0}
 --- !u!58 &5531213381318830772
 CircleCollider2D:

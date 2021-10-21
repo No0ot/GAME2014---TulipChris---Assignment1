@@ -627,8 +627,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14861de0543ddfe48a36cd06602df280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 0
+  timer: 300
   unlimited: 0
+  lives: 3
+  lifeRefresh: 1
 --- !u!4 &239312288
 Transform:
   m_ObjectHideFlags: 0
@@ -913,7 +915,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 27f965638264018409bfe2a3f8a32287, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c16da7f2861cfe945a328bdd474be20d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1032,6 +1034,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 150}
   m_SizeDelta: {x: -50, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &391089024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 391089026}
+  - component: {fileID: 391089025}
+  m_Layer: 0
+  m_Name: PlayerStuff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &391089025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391089024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8a26d0fb21349419a20e718a21a34a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: 0
+  iron: 0
+  steel: 0
+  totalKills: 0
+--- !u!4 &391089026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391089024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &427231624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1113,7 @@ Transform:
   - {fileID: 119350239}
   - {fileID: 1476076298}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &443674888
 GameObject:
@@ -3715,7 +3764,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -187.5, y: 0.0000032634}
+  m_AnchoredPosition: {x: -187.5, y: 0}
   m_SizeDelta: {x: -425, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &916956550
@@ -16534,10 +16583,10 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 325476106}
-        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
-        m_MethodName: SpawnEnemy
-        m_Mode: 1
+      - m_Target: {fileID: 2088706692}
+        m_TargetAssemblyTypeName: GameplayUIManager, Assembly-CSharp
+        m_MethodName: PauseButton
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16546,7 +16595,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &1716976462
 GameObject:
   m_ObjectHideFlags: 0
@@ -17051,7 +17100,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c16da7f2861cfe945a328bdd474be20d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 27f965638264018409bfe2a3f8a32287, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17437,50 +17486,7 @@ Transform:
   m_Children:
   - {fileID: 863075032}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1893011352
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1893011354}
-  - component: {fileID: 1893011353}
-  m_Layer: 0
-  m_Name: UIManagerEditor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1893011353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893011352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2663f74a9cd8bf146acc698c5459a19c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1893011354
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893011352}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.013958454, z: 90}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1988836066
 GameObject:
@@ -17683,6 +17689,7 @@ GameObject:
   - component: {fileID: 2088706690}
   - component: {fileID: 2088706689}
   - component: {fileID: 2088706688}
+  - component: {fileID: 2088706692}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -17775,6 +17782,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2088706692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088706687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e1d9dd6bcd7bd4781e28ced0efdfb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldResourceText: {fileID: 1261519761}
+  ironResourceText: {fileID: 1364484951}
+  steelResourceText: {fileID: 1597437226}
+  timerText: {fileID: 952752490}
+  killsText: {fileID: 190641048}
+  playerRef: {fileID: 391089025}
+  livesSprite:
+  - {fileID: 552766018}
+  - {fileID: 1538025355}
+  - {fileID: 1988836066}
 --- !u!1 &2121131093
 GameObject:
   m_ObjectHideFlags: 0

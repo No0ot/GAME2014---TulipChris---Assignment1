@@ -15,10 +15,10 @@ public class ProjectileScript : MonoBehaviour
     public float moveSpeed;
     public int damage;
 
-    public float journeyLength;
+    private float journeyLength;
     private float startTime;
-    public Vector3 startPosition;
-    public Vector3 endPosition;
+    private Vector3 startPosition;
+    private Vector3 endPosition;
 
     public TowerScript towerOwner;
 

@@ -26,6 +26,8 @@ public class EnemyScript : MonoBehaviour
     public int steelMin;
     public int steelMax;
 
+    public GameObject lifeBar;
+
     private void Start()
     {
         startTime = Time.time;
@@ -37,6 +39,7 @@ public class EnemyScript : MonoBehaviour
     }
     private void OnEnable()
     {
+        UpdateLifeBar();
         startTime = Time.time;
         //journeyLength = Vector3.Distance(currentTile.transform.position, targetTile.transform.position);
         currentHealth = maxHealth;
@@ -47,7 +50,6 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //CheckHealth();
         CheckDistance();
         Move();
     }
@@ -85,8 +87,10 @@ public class EnemyScript : MonoBehaviour
         if (currentHealth <= 0)
         {
             gameObject.SetActive(false);
+            
             return false;
         }
+        UpdateLifeBar();
         return true;
     }
 
@@ -95,5 +99,11 @@ public class EnemyScript : MonoBehaviour
         PlayerStats.Instance.gold += goldReward;
         PlayerStats.Instance.iron += ironReward;
         PlayerStats.Instance.gold += steelReward;
+    }
+
+    void UpdateLifeBar()
+    {
+        float temp = (float)currentHealth / (float)maxHealth;
+        lifeBar.transform.localScale = new Vector3(lifeBar.transform.localScale.x * temp, lifeBar.transform.localScale.y, lifeBar.transform.localScale.z);
     }
 }
