@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         DontDestroyOnLoad(this.gameObject);
+        Time.timeScale = 0.0f;
     }
 
     // Update is called once per frame

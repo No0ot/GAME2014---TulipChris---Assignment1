@@ -68,7 +68,7 @@ public class ProjectileScript : MonoBehaviour
         if(collision.CompareTag("Enemy"))
         {
             EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript>();
-            enemy.currentHealth = enemy.currentHealth - damage;
+            enemy.TakeDamage(damage);
             if(!enemy.CheckHealth())
             {
                 towerOwner.kills++;

@@ -39,13 +39,14 @@ public class EnemyScript : MonoBehaviour
     }
     private void OnEnable()
     {
-        UpdateLifeBar();
         startTime = Time.time;
         //journeyLength = Vector3.Distance(currentTile.transform.position, targetTile.transform.position);
         currentHealth = maxHealth;
         goldReward = Random.Range(goldMin, goldMax);
         ironReward = Random.Range(ironMin, ironMax);
         steelReward = Random.Range(steelMin, steelMax);
+        lifeBar.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        UpdateLifeBar();
     }
     // Update is called once per frame
     void Update()
@@ -81,7 +82,14 @@ public class EnemyScript : MonoBehaviour
             }
         }
     }
-
+    public void TakeDamage(int damage)
+    {
+        if (!armored)
+            currentHealth -= damage;
+        else
+            currentHealth -= damage / 2;
+        Debug.Log(damage / 2);
+    }
     public bool CheckHealth()
     {
         if (currentHealth <= 0)
@@ -104,6 +112,6 @@ public class EnemyScript : MonoBehaviour
     void UpdateLifeBar()
     {
         float temp = (float)currentHealth / (float)maxHealth;
-        lifeBar.transform.localScale = new Vector3(lifeBar.transform.localScale.x * temp, lifeBar.transform.localScale.y, lifeBar.transform.localScale.z);
+        lifeBar.transform.localScale = new Vector3(1.0f * temp, lifeBar.transform.localScale.y, lifeBar.transform.localScale.z);
     }
 }
