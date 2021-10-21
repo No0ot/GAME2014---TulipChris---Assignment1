@@ -20,6 +20,8 @@ public class ProjectileScript : MonoBehaviour
     public Vector3 startPosition;
     public Vector3 endPosition;
 
+    public TowerScript towerOwner;
+
 
     private void Update()
     {
@@ -65,7 +67,13 @@ public class ProjectileScript : MonoBehaviour
     {
         if(collision.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyScript>().currentHealth = collision.gameObject.GetComponent<EnemyScript>().currentHealth - damage;
+            EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript>();
+            enemy.currentHealth = enemy.currentHealth - damage;
+            if(!enemy.CheckHealth())
+            {
+                towerOwner.kills++;
+                enemy.AddReward();
+            }
             gameObject.SetActive(false);
         }
     }

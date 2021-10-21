@@ -121,6 +121,11 @@ MonoBehaviour:
   currentHealth: 0
   armored: 0
   moveSpeed: 2
+  goldReward: 0
+  ironReward: 0
+  steelReward: 0
+  goldMin: 1
+  goldMax: 4
 --- !u!50 &2357031584592376971
 Rigidbody2D:
   serializedVersion: 4

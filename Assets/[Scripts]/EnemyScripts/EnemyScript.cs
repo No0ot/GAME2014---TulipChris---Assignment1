@@ -15,24 +15,39 @@ public class EnemyScript : MonoBehaviour
 
     private float journeyLength;
     private float startTime;
-    private bool tileReached;
+
+    int goldReward;
+    int ironReward;
+    int steelReward;
+    public int goldMin;
+    public int goldMax;
+    public int ironMin;
+    public int ironMax;
+    public int steelMin;
+    public int steelMax;
 
     private void Start()
     {
         startTime = Time.time;
         journeyLength = Vector3.Distance(currentTile.transform.position, targetTile.transform.position);
         currentHealth = maxHealth;
+        goldReward = Random.Range(goldMin, goldMax);
+        ironReward = Random.Range(ironMin, ironMax);
+        steelReward = Random.Range(steelMin, steelMax);
     }
     private void OnEnable()
     {
         startTime = Time.time;
         //journeyLength = Vector3.Distance(currentTile.transform.position, targetTile.transform.position);
         currentHealth = maxHealth;
+        goldReward = Random.Range(goldMin, goldMax);
+        ironReward = Random.Range(ironMin, ironMax);
+        steelReward = Random.Range(steelMin, steelMax);
     }
     // Update is called once per frame
     void Update()
     {
-        CheckHealth();
+        //CheckHealth();
         CheckDistance();
         Move();
     }
@@ -51,6 +66,8 @@ public class EnemyScript : MonoBehaviour
         {
             if (targetTile.pathfindingState == PathfindingState.END)
             {
+                GameManager.Instance.lives--;
+                GameplayUIManager.Instance.UpdateLifeSprites();
                 gameObject.SetActive(false);
             }
             else
@@ -63,11 +80,20 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    private void CheckHealth()
+    public bool CheckHealth()
     {
         if (currentHealth <= 0)
         {
             gameObject.SetActive(false);
+            return false;
         }
+        return true;
+    }
+
+    public void AddReward()
+    {
+        PlayerStats.Instance.gold += goldReward;
+        PlayerStats.Instance.iron += ironReward;
+        PlayerStats.Instance.gold += steelReward;
     }
 }

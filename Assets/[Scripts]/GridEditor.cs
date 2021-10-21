@@ -218,6 +218,8 @@ public class GridEditor : MonoBehaviour
             GameObject tempTower = towerManager.GetTower(selectTower);
             tempTower.transform.position = selected_tile.transform.position;
             selected_tile.occupied = true;
+            gameplayGrid.ResetTileStates();
+            ShowBuildTiles();
         }
     }
 }
