@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
 
     List<GameObject> enemyList;
 
-    public bool spawnEnemy = false;
+    //public bool spawnEnemy = false;
 
     private EnemyFactory factory;
 
@@ -45,19 +45,20 @@ public class EnemyManager : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        if (spawnEnemy)
-        {
-            GameObject temp = GetEnemy();
-            temp.transform.position = gameplayGrid.startTile.transform.position;
-            temp.GetComponent<EnemyScript>().currentTile = gameplayGrid.startTile;
-            temp.GetComponent<EnemyScript>().targetTile = gameplayGrid.startTile.pathNext;
-            temp.SetActive(true);
-            spawnEnemy = false;
-        }
+        GameObject temp = GetEnemy();
+        temp.transform.position = gameplayGrid.startTile.transform.position;
+        temp.GetComponent<EnemyScript>().currentTile = gameplayGrid.startTile;
+        temp.GetComponent<EnemyScript>().targetTile = gameplayGrid.startTile.pathNext;
+        temp.SetActive(true);
+        //spawnEnemy = false;
     }
 
-    private void Update()
+    public void IncrementEnemyHealth()
     {
-        SpawnEnemy();
+        foreach(GameObject enemy in enemyList)
+        {
+            enemy.GetComponent<EnemyScript>().maxHealth *= 1.2f;
+        }
+        factory.IncrementHealth(enemyType);
     }
 }

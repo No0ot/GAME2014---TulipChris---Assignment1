@@ -599,7 +599,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayGrid: {fileID: 1492243287}
-  spawnEnemy: 0
   enemyType: 2
 --- !u!4 &119350239
 Transform:
@@ -1196,7 +1195,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayGrid: {fileID: 1492243287}
-  spawnEnemy: 0
   enemyType: 0
 --- !u!4 &325476107
 Transform:
@@ -1398,6 +1396,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 427231625}
+  - component: {fileID: 427231626}
   m_Layer: 0
   m_Name: EnemyManagers
   m_TagString: Untagged
@@ -1423,6 +1422,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &427231626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427231624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c1bda712fcc76c49a8e8c9dca3f3e96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicManager: {fileID: 325476106}
+  armoredManager: {fileID: 2017681865}
+  fastManager: {fileID: 119350238}
+  tankManager: {fileID: 1476076297}
+  basicActive: 1
+  armoredActive: 0
+  fastActive: 0
+  tankActive: 0
 --- !u!1 &443674888
 GameObject:
   m_ObjectHideFlags: 0
@@ -16785,7 +16804,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayGrid: {fileID: 1492243287}
-  spawnEnemy: 0
   enemyType: 3
 --- !u!4 &1476076298
 Transform:
@@ -19242,7 +19260,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayGrid: {fileID: 1492243287}
-  spawnEnemy: 0
   enemyType: 1
 --- !u!4 &2017681866
 Transform:

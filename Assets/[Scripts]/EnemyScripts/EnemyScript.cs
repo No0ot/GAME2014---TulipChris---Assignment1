@@ -8,8 +8,8 @@ public class EnemyScript : MonoBehaviour
     public Tile targetTile = null;
     public Tile currentTile = null;
 
-    public int maxHealth;
-    public int currentHealth;
+    public float maxHealth;
+    public float currentHealth;
     public bool armored;
     public float moveSpeed;
 
@@ -26,7 +26,10 @@ public class EnemyScript : MonoBehaviour
     public int steelMin;
     public int steelMax;
 
+    public GameObject greenLifeBar;
     public GameObject lifeBar;
+    Quaternion lifeBarRot;
+    Vector3 lifeBarPos;
 
     private void Start()
     {
@@ -34,8 +37,10 @@ public class EnemyScript : MonoBehaviour
         journeyLength = Vector3.Distance(currentTile.transform.position, targetTile.transform.position);
         currentHealth = maxHealth;
         goldReward = Random.Range(goldMin, goldMax);
-        ironReward = Random.Range(ironMin, ironMax);
+        ironReward = Random.Range(ironMin, ironMax); 
         steelReward = Random.Range(steelMin, steelMax);
+        lifeBarRot = lifeBar.transform.rotation;
+        lifeBarPos = lifeBar.transform.position;
     }
     private void OnEnable()
     {
@@ -45,7 +50,7 @@ public class EnemyScript : MonoBehaviour
         goldReward = Random.Range(goldMin, goldMax);
         ironReward = Random.Range(ironMin, ironMax);
         steelReward = Random.Range(steelMin, steelMax);
-        lifeBar.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        greenLifeBar.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         UpdateLifeBar();
     }
     // Update is called once per frame
@@ -53,6 +58,7 @@ public class EnemyScript : MonoBehaviour
     {
         CheckDistance();
         Move();
+        Rotate();
     }
 
     private void Move()
@@ -82,13 +88,12 @@ public class EnemyScript : MonoBehaviour
             }
         }
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (!armored)
             currentHealth -= damage;
         else
             currentHealth -= damage / 2;
-        Debug.Log(damage / 2);
     }
     public bool CheckHealth()
     {
@@ -112,6 +117,22 @@ public class EnemyScript : MonoBehaviour
     void UpdateLifeBar()
     {
         float temp = (float)currentHealth / (float)maxHealth;
-        lifeBar.transform.localScale = new Vector3(1.0f * temp, lifeBar.transform.localScale.y, lifeBar.transform.localScale.z);
+        greenLifeBar.transform.localScale = new Vector3(1.0f * temp, greenLifeBar.transform.localScale.y, greenLifeBar.transform.localScale.z);
+    }
+
+    void Rotate()
+    {
+        Vector3 direction = new Vector3(targetTile.transform.position.x - currentTile.transform.position.x,
+                                        targetTile.transform.position.y - currentTile.transform.position.y,
+                                        0.0f);
+
+        if (direction != Vector3.zero)
+        {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+
+        lifeBar.transform.rotation = lifeBarRot;
+        lifeBar.transform.position = transform.position + new Vector3(0.0f, 0.5f, 0.0f);
     }
 }

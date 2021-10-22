@@ -102,7 +102,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.3
 --- !u!114 &7618947543919113538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,7 +128,8 @@ MonoBehaviour:
   ironMax: 0
   steelMin: 0
   steelMax: 0
-  lifeBar: {fileID: 1924495525744629474}
+  greenLifeBar: {fileID: 1924495525744629474}
+  lifeBar: {fileID: 1197015856277120334}
 --- !u!50 &4506146725948008505
 Rigidbody2D:
   serializedVersion: 4

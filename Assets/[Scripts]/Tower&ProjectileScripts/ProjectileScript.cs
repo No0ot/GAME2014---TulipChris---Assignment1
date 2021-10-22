@@ -13,7 +13,7 @@ public class ProjectileScript : MonoBehaviour
 {
     public GameObject targetEnemy = null;
     public float moveSpeed;
-    public int damage;
+    public float damage;
 
     private float journeyLength;
     private float startTime;

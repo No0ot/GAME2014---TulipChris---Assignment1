@@ -52,21 +52,6 @@ public class TowerScript : MonoBehaviour
         {
             targetEnemy = enemysInRange[0];
         }
-        //EnemyScript[] enemies = FindObjectsOfType<EnemyScript>();
-        //
-        //foreach(EnemyScript enemy in enemies)
-        //{
-        //    if(targetEnemy)
-        //    {
-        //        float distanceT = Vector3.Distance(transform.gameObject.transform.position, targetEnemy.transform.position);
-        //        float distanceE = Vector3.Distance(transform.gameObject.transform.position, enemy.transform.position);
-        //
-        //        if(distanceE > distanceT)
-        //            targetEnemy = enemy.gameObject;
-        //    }
-        //    //targetEnemy = enemy.gameObject;
-        //}
-                
     }
 
     private void Shoot()
@@ -107,7 +92,7 @@ public class TowerScript : MonoBehaviour
                 targetEnemy = null;
             enemysInRange.Remove(collision.gameObject);
             
-            Debug.Log("exit");
+            //Debug.Log("exit");
         }
     }
 }
