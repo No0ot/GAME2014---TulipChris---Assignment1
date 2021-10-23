@@ -108,7 +108,6 @@ public class GridEditor : MonoBehaviour
             if(!setPath && !buyChunk && !buyTower && edited_tile.occupied)
             {
                 GameplayUIManager.Instance.detailsPanel.gameObject.SetActive(true);
-                //GameplayUIManager.Instance.detailsPanel.tower
                 GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(edited_tile.occupiedTowerReference, DetailsPanelSetting.UPGRADE);
             }
             else if(!setPath && !buyChunk && !buyTower)
@@ -118,11 +117,13 @@ public class GridEditor : MonoBehaviour
 
     public void SetBuyChunk(bool trufal)
     {
+        SoundManager.Instance.PlayRandomClickForward();
         gameplayGrid.ResetTileStates();
         buyChunk = trufal;
     }
     public void SetBuildPath(bool trufal)
     {
+        SoundManager.Instance.PlayRandomClickForward();
         if (trufal)
         {
             gameplayGrid.ResetTileStates();
@@ -137,6 +138,7 @@ public class GridEditor : MonoBehaviour
     }
     public void SetBuyTower(bool trufal)
     {
+        SoundManager.Instance.PlayRandomClickForward();
         if (trufal)
         {
             gameplayGrid.ResetTileStates();
@@ -153,24 +155,28 @@ public class GridEditor : MonoBehaviour
     // I hate that im doing this but I want to use toggles for this and cant think of another option at the moment
     public void setTower1(bool trufal)
     {
+        SoundManager.Instance.PlayRandomClickForward();
         basicTowerSelect = trufal;
         selectTower = TowerType.BASIC;
         GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
     public void setTower2(bool trufal)
     {
+        SoundManager.Instance.PlayRandomClickForward();
         rapidTowerSelect = trufal;
         selectTower = TowerType.RAPID;
         GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
     public void setTower3(bool trufal)
     {
+        SoundManager.Instance.PlayRandomClickForward();
         quakeTowerSelect = trufal;
         selectTower = TowerType.QUAKE;
         GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
     public void setTower4(bool trufal)
     {
+        SoundManager.Instance.PlayRandomClickForward();
         missleTowerSelect = trufal;
         selectTower = TowerType.MISSLE;
         GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
@@ -238,6 +244,7 @@ public class GridEditor : MonoBehaviour
         {
             if (selected_tile.interactState == InteractState.GOOD)
             {
+                SoundManager.Instance.PlayDigSound();
                 selected_tile.SetPathfindingState(PathfindingState.END);
                 gameplayGrid.startTile.pathNext = selected_tile;
                 gameplayGrid.endTile = selected_tile;
@@ -250,6 +257,7 @@ public class GridEditor : MonoBehaviour
         {
             if (selected_tile.interactState == InteractState.GOOD)
             {
+                SoundManager.Instance.PlayDigSound();
                 selected_tile.SetPathfindingState(PathfindingState.END);
                 gameplayGrid.endTile.pathNext = selected_tile;
                 gameplayGrid.endTile.SetPathfindingState(PathfindingState.PATH);
@@ -278,6 +286,7 @@ public class GridEditor : MonoBehaviour
     {
         if (selected_tile.interactState == InteractState.GOOD)
         {
+            SoundManager.Instance.PlayTowerBuild();
             GameObject tempTower = towerManager.GetTower(selectTower);
             tempTower.transform.position = selected_tile.transform.position;
             selected_tile.occupied = true;

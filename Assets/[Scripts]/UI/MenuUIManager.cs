@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuUIManager : MonoBehaviour
 {
-
     public void OnPlayModeButtonpressed(bool trufal)
     {
         if (trufal)
@@ -35,5 +34,10 @@ public class MenuUIManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+    }
+
+    public void QuitButtonPressed()
+    {
+        Application.Quit();
     }
 }

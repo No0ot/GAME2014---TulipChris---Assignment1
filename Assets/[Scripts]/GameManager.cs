@@ -38,13 +38,23 @@ public class GameManager : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        if (SceneManager.GetActiveScene().name == "PlayScene")
+        switch(level)
         {
-            Time.timeScale = 0.0f;
-            enemySpawner = PlayerStats.Instance.enemySpawner;
-            finalKills = 0;
-            difficultyTimer = 0;
-            newUnitTimer = 0;
+            case 0:
+                SoundManager.Instance.PlayMenuMusic();
+                break;
+            case 1:
+                SoundManager.Instance.PlayGameplayMusic();
+                Time.timeScale = 0.0f;
+                enemySpawner = PlayerStats.Instance.enemySpawner;
+                finalKills = 0;
+                difficultyTimer = 0;
+                newUnitTimer = 0;
+                break;
+            case 2:
+                StopAllCoroutines();
+                SoundManager.Instance.PlayMenuMusic();
+                break;
         }
     }
 

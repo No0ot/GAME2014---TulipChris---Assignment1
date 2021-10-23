@@ -30,6 +30,8 @@ public class EndSceneManager : MonoBehaviour
 
     public void MainMenuButtonPressed()
     {
+        Destroy(GameManager.Instance.gameObject);
+        Destroy(SoundManager.Instance.gameObject);
         SceneManager.LoadScene("MainMenu");
     }
 

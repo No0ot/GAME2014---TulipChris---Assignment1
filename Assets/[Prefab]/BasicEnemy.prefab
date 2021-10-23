@@ -118,7 +118,7 @@ MonoBehaviour:
   type: 0
   targetTile: {fileID: 0}
   currentTile: {fileID: 0}
-  maxHealth: 25
+  maxHealth: 20
   currentHealth: 0
   armored: 0
   moveSpeed: 2

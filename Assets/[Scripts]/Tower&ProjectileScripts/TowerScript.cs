@@ -59,6 +59,7 @@ public class TowerScript : MonoBehaviour
     {
         if (fireRateCounter >= fireRate)
         {
+            SoundManager.Instance.PlayTowerShoot(type);
             GameObject tempProj = projectileManager.GetProjectile();
             tempProj.transform.position = transform.position;
             tempProj.GetComponent<ProjectileScript>().targetEnemy = targetEnemy;
@@ -118,6 +119,7 @@ public class TowerScript : MonoBehaviour
     {
         if(level < 3)
         {
+            SoundManager.Instance.PlayTowerUpgrade();
             level++;
             if(level == 2)
             {

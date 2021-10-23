@@ -52,6 +52,7 @@ public class EnemyScript : MonoBehaviour
         steelReward = Random.Range(steelMin, steelMax);
         greenLifeBar.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         UpdateLifeBar();
+        //audioSource.Stop();
     }
     // Update is called once per frame
     void Update()
@@ -100,6 +101,7 @@ public class EnemyScript : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            SoundManager.Instance.PlayRandomEnemyDeathSound();
             gameObject.SetActive(false);
             
             return false;
