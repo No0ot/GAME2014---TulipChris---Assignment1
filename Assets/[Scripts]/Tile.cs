@@ -59,7 +59,7 @@ public class Tile : MonoBehaviour
     public Color badColor;
     public Color unownedColor;
 
-    public GameObject occupiedTowerReference;
+    public GameObject occupiedTowerReference = null;
 
     private void Awake()
     {

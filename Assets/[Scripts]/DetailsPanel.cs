@@ -45,6 +45,9 @@ public class DetailsPanel : MonoBehaviour
 
     public DetailsPanelSetting setting;
 
+    public TMP_Text towerLevel;
+    public TMP_Text towerKills;
+
     public void UpdateTargetReference(GameObject target, DetailsPanelSetting new_Setting)
     {
         targetReference = target;
@@ -83,6 +86,12 @@ public class DetailsPanel : MonoBehaviour
         rangeBar.offsetMin = new Vector2(260 - (260 * ((float)towerReference.range / (float)rangeMax)), speedBar.offsetMax.y);
     }
 
+    void UpdateTowerStats()
+    {
+        towerLevel.SetText(towerReference.level.ToString());
+        towerKills.SetText(towerReference.kills.ToString());
+    }
+
     void Refresh()
     {
         switch (setting)
@@ -95,6 +104,7 @@ public class DetailsPanel : MonoBehaviour
             case DetailsPanelSetting.UPGRADE:
                 buildPanel.SetActive(false);
                 upgradePanel.SetActive(true);
+                UpdateTowerStats();
                 break;
         }
         UpdatePortrait();

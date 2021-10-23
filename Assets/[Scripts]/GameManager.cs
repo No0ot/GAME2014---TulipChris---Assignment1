@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public bool lifeRefresh = true;
     float lifeTimer;
     float lifeTimerMax = 60;
+
+    EnemyWaveSpawner enemySpawner;
     // Start is called before the first frame update
     void Awake()
     {

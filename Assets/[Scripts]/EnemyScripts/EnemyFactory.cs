@@ -10,10 +10,10 @@ public class EnemyFactory : MonoBehaviour
     public GameObject fastEnemyPrefab;
     public GameObject tankEnemyPrefab;
 
-    public float basicHealthIncrement = 1.0f;
-    public float armoredHealthIncrement = 1.0f;
-    public float fastHealthIncrement = 1.0f;
-    public float tankHealthIncrement = 1.0f;
+    float basicHealthIncrement = 1.0f;
+    float armoredHealthIncrement = 1.0f;
+    float fastHealthIncrement = 1.0f;
+    float tankHealthIncrement = 1.0f;
 
     public GameObject CreateEnemy(EnemyType type)
     {

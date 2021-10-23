@@ -88,7 +88,7 @@ public class EnemyWaveSpawner : MonoBehaviour
         }
     }
 
-    void IncrementHealth()
+    public void IncrementHealth()
     {
         if (basicActive)
             basicManager.IncrementEnemyHealth();

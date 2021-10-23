@@ -72,6 +72,7 @@ public class ProjectileScript : MonoBehaviour
             if(!enemy.CheckHealth())
             {
                 towerOwner.kills++;
+                PlayerStats.Instance.totalKills++;
                 enemy.AddReward();
             }
             gameObject.SetActive(false);

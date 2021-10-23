@@ -75,6 +75,7 @@ public class GridEditor : MonoBehaviour
             if(!setPath && !buyChunk && !buyTower && edited_tile.occupied)
             {
                 GameplayUIManager.Instance.detailsPanel.gameObject.SetActive(true);
+                //GameplayUIManager.Instance.detailsPanel.tower
                 GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(edited_tile.occupiedTowerReference, DetailsPanelSetting.UPGRADE);
             }
             else if(!setPath && !buyChunk && !buyTower)

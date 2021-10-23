@@ -20,7 +20,7 @@ public class TowerScript : MonoBehaviour
 
     public TowerType type;
     public int level = 1;
-    public int kills;
+    public int kills = 0;
     
     public int goldCost;
     public int ironCost;
@@ -44,6 +44,7 @@ public class TowerScript : MonoBehaviour
             FindEnemy();
         else
             Shoot();
+        Rotate();
     }
 
     private void FindEnemy()
@@ -94,5 +95,22 @@ public class TowerScript : MonoBehaviour
             
             //Debug.Log("exit");
         }
+    }
+
+    void Rotate()
+    {
+        if (targetEnemy)
+        {
+            Vector3 direction = new Vector3(transform.position.x - targetEnemy.transform.position.x,
+                                            transform.position.y - targetEnemy.transform.position.y,
+                                            0.0f);
+            if (direction != Vector3.zero)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+            }
+        }
+        else
+            transform.Rotate(new Vector3(0.0f, 0.0f, 10.0f * Time.deltaTime), Space.World);
     }
 }
