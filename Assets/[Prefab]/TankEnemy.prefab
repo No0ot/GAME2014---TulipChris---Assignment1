@@ -124,10 +124,10 @@ MonoBehaviour:
   moveSpeed: 1
   goldMin: 10
   goldMax: 20
-  ironMin: 0
-  ironMax: 0
-  steelMin: 0
-  steelMax: 0
+  ironMin: 2
+  ironMax: 5
+  steelMin: 1
+  steelMax: 3
   greenLifeBar: {fileID: 2825174403046611862}
   lifeBar: {fileID: 3442954236487408836}
 --- !u!50 &-6950990428688320930

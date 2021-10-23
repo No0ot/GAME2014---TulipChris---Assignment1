@@ -122,7 +122,7 @@ MonoBehaviour:
   currentHealth: 0
   armored: 0
   moveSpeed: 2
-  goldMin: 1
+  goldMin: 2
   goldMax: 4
   ironMin: 0
   ironMax: 0

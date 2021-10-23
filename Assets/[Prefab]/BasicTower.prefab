@@ -105,8 +105,8 @@ MonoBehaviour:
   level: 1
   kills: 0
   goldCost: 20
-  ironCost: 0
-  steelCost: 0
+  ironCost: 10
+  steelCost: 5
   targetEnemy: {fileID: 0}
   projectileManager: {fileID: 0}
 --- !u!58 &5531213381318830772

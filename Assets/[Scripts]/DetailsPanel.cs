@@ -143,4 +143,28 @@ public class DetailsPanel : MonoBehaviour
         }
     }
 
+    public void UpgradeButton()
+    {
+        if(setting == DetailsPanelSetting.UPGRADE)
+        {
+            switch (towerReference.level)
+            {
+                case 1:
+                    if (PlayerStats.Instance.iron >= towerReference.ironCost)
+                        towerReference.UpgradeTower();
+                    else
+                        Debug.Log("Need more Iron");
+                    break;
+                case 2:
+                    if (PlayerStats.Instance.steel >= towerReference.steelCost)
+                        towerReference.UpgradeTower();
+                    else
+                        Debug.Log("Need more Steel");
+                    break;
+                case 3:
+                    // find something to do here
+                    break;
+            }
+        }
+    }
 }

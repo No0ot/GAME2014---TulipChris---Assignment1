@@ -122,10 +122,10 @@ MonoBehaviour:
   currentHealth: 0
   armored: 0
   moveSpeed: 2
-  goldMin: 0
-  goldMax: 0
+  goldMin: 1
+  goldMax: 3
   ironMin: 0
-  ironMax: 0
+  ironMax: 1
   steelMin: 0
   steelMax: 0
   greenLifeBar: {fileID: 8137344291107066101}

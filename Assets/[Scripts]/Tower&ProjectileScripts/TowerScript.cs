@@ -71,8 +71,8 @@ public class TowerScript : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.5f);
-        Gizmos.DrawSphere(transform.position, range);
+        //Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.5f);
+        //Gizmos.DrawSphere(transform.position, range);
 
     }
 
@@ -112,5 +112,27 @@ public class TowerScript : MonoBehaviour
         }
         else
             transform.Rotate(new Vector3(0.0f, 0.0f, 10.0f * Time.deltaTime), Space.World);
+    }
+
+    public void UpgradeTower()
+    {
+        if(level < 3)
+        {
+            level++;
+            if(level == 2)
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+                PlayerStats.Instance.iron -= ironCost;
+                fireRate *= 0.8f;
+                range *= 1.1f;
+            }
+            else if(level == 3)
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                PlayerStats.Instance.steel -= steelCost;
+                fireRate *= 0.8f;
+                range *= 1.1f;
+            }
+        }
     }
 }
