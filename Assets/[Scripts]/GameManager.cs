@@ -14,11 +14,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return instance; } }
 
     public float timer;
-
+    float difficultyTimer;
+    float newUnitTimer;
     public bool unlimited = false;
 
     public int lives = 3;
-    
 
     public bool lifeRefresh = true;
     float lifeTimer;
@@ -27,13 +27,13 @@ public class GameManager : MonoBehaviour
     public float finalKills;
     public bool inGame;
 
-    EnemyWaveSpawner enemySpawner;
+    public EnemyWaveSpawner enemySpawner;
     // Start is called before the first frame update
     void Awake()
     {
         instance = this;
         DontDestroyOnLoad(this.gameObject);
-       
+
     }
 
     private void OnLevelWasLoaded(int level)
@@ -41,6 +41,10 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "PlayScene")
         {
             Time.timeScale = 0.0f;
+            enemySpawner = PlayerStats.Instance.enemySpawner;
+            finalKills = 0;
+            difficultyTimer = 0;
+            newUnitTimer = 0;
         }
     }
 
@@ -55,6 +59,9 @@ public class GameManager : MonoBehaviour
                 Debug.Log("life regen");
                 StartCoroutine(LifeRegenerate());
             }
+
+            TimedDifficultyIncrease();
+            NewUnitEnabled();
         }
     }
 
@@ -63,7 +70,7 @@ public class GameManager : MonoBehaviour
         if (!unlimited)
         {
             timer -= Time.deltaTime;
-            if(timer <= 0)
+            if (timer <= 0)
             {
                 GameOver();
             }
@@ -91,12 +98,12 @@ public class GameManager : MonoBehaviour
             lifeRefresh = true;
             yield return null;
         }
-        
+
     }
 
     public void CheckLives()
     {
-        if(lives <= 0)
+        if (lives <= 0)
         {
             GameOver();
         }
@@ -107,5 +114,29 @@ public class GameManager : MonoBehaviour
         finalKills = PlayerStats.Instance.totalKills;
         SceneManager.LoadScene("EndScene");
     }
-        
+
+    void TimedDifficultyIncrease()
+    {
+        if (difficultyTimer >= 30f)
+        {
+            enemySpawner.IncrementHealth();
+            enemySpawner.DecrementTimer();
+            difficultyTimer = 0f;
+        }
+        else
+            difficultyTimer += Time.deltaTime;
+    }
+
+    void NewUnitEnabled()
+    {
+        if (newUnitTimer >= 30f && !enemySpawner.fastActive)
+            enemySpawner.fastActive = true;
+        if (newUnitTimer >= 60f && !enemySpawner.armoredActive)
+            enemySpawner.armoredActive = true;
+        if (newUnitTimer >= 210f && !enemySpawner.tankActive)
+            enemySpawner.tankActive = true;
+
+        newUnitTimer += Time.deltaTime;
+    }
+
 }

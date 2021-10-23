@@ -24,6 +24,17 @@ public class EnemyWaveSpawner : MonoBehaviour
     public bool fastActive;
     public bool tankActive;
 
+    private void Start()
+    {
+        timeBtwnBasic = 2.5f;
+        timeBtwnArmored = 5f;
+        timeBtwnFast = 2f;
+        timeBtwnTank = 30f;
+
+        armoredActive = false;
+        fastActive = false;
+        tankActive = false;
+    }
     private void Update()
     {
         SpawnBasic();
@@ -98,5 +109,17 @@ public class EnemyWaveSpawner : MonoBehaviour
             fastManager.IncrementEnemyHealth();
         if (tankActive)
             tankManager.IncrementEnemyHealth();
+    }
+
+    public void DecrementTimer()
+    {
+        if (basicActive && timeBtwnBasic > 1f)
+            timeBtwnBasic -= 0.25f;
+        if (armoredActive && timeBtwnArmored > 1f)
+            timeBtwnArmored -= 0.25f;
+        if (fastActive && timeBtwnFast > 0.5f)
+            timeBtwnFast -= 0.25f;
+        if (tankActive && timeBtwnTank > 10.0f)
+            timeBtwnTank -= 5f;
     }
 }

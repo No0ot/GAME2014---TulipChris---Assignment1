@@ -12,6 +12,8 @@ public class PlayerStats : MonoBehaviour
     public int steel;
     public int totalKills;
 
+    public EnemyWaveSpawner enemySpawner;
+
     private void Awake()
     {
         instance = this;

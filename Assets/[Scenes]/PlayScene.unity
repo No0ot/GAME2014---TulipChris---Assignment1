@@ -993,12 +993,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14861de0543ddfe48a36cd06602df280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 10
+  timer: 301
   unlimited: 0
   lives: 3
   lifeRefresh: 1
   finalKills: 0
   inGame: 0
+  enemySpawner: {fileID: 0}
 --- !u!4 &239312288
 Transform:
   m_ObjectHideFlags: 0
@@ -1643,6 +1644,7 @@ MonoBehaviour:
   iron: 0
   steel: 0
   totalKills: 0
+  enemySpawner: {fileID: 427231626}
 --- !u!4 &391089026
 Transform:
   m_ObjectHideFlags: 0

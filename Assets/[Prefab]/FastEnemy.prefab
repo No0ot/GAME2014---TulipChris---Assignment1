@@ -118,10 +118,10 @@ MonoBehaviour:
   type: 2
   targetTile: {fileID: 0}
   currentTile: {fileID: 0}
-  maxHealth: 15
+  maxHealth: 20
   currentHealth: 0
   armored: 0
-  moveSpeed: 2
+  moveSpeed: 3
   goldMin: 1
   goldMax: 3
   ironMin: 0

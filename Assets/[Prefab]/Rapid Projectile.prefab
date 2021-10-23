@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3119612304389897042}
   - component: {fileID: 5611144069444402855}
   - component: {fileID: 2435321316736647893}
+  - component: {fileID: 284784974863721276}
   m_Layer: 0
   m_Name: Rapid Projectile
   m_TagString: Untagged
@@ -96,3 +97,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c915aec92d191e42b5d15b3f8480f38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetEnemy: {fileID: 0}
+  moveSpeed: 5
+  damage: 0
+  towerOwner: {fileID: 0}
+--- !u!58 &284784974863721276
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540511618943382139}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.16
