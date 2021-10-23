@@ -45,11 +45,14 @@ public class EnemyManager : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        GameObject temp = GetEnemy();
-        temp.transform.position = gameplayGrid.startTile.transform.position;
-        temp.GetComponent<EnemyScript>().currentTile = gameplayGrid.startTile;
-        temp.GetComponent<EnemyScript>().targetTile = gameplayGrid.startTile.pathNext;
-        temp.SetActive(true);
+        if (gameplayGrid.endTile)
+        {
+            GameObject temp = GetEnemy();
+            temp.transform.position = gameplayGrid.startTile.transform.position;
+            temp.GetComponent<EnemyScript>().currentTile = gameplayGrid.startTile;
+            temp.GetComponent<EnemyScript>().targetTile = gameplayGrid.startTile.pathNext;
+            temp.SetActive(true);
+        }
         //spawnEnemy = false;
     }
 

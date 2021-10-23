@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,10 +18,14 @@ public class GameManager : MonoBehaviour
     public bool unlimited = false;
 
     public int lives = 3;
+    
 
     public bool lifeRefresh = true;
     float lifeTimer;
     float lifeTimerMax = 60;
+
+    public float finalKills;
+    public bool inGame;
 
     EnemyWaveSpawner enemySpawner;
     // Start is called before the first frame update
@@ -28,24 +33,41 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         DontDestroyOnLoad(this.gameObject);
-        Time.timeScale = 0.0f;
+       
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if (SceneManager.GetActiveScene().name == "PlayScene")
+        {
+            Time.timeScale = 0.0f;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        TimerCountdown();
-        if(lives < 3 && lifeRefresh)
+        if (SceneManager.GetActiveScene().name == "PlayScene")
         {
-            Debug.Log("life regen");
-            StartCoroutine(LifeRegenerate());
+            TimerCountdown();
+            if (lives < 3 && lifeRefresh)
+            {
+                Debug.Log("life regen");
+                StartCoroutine(LifeRegenerate());
+            }
         }
     }
 
     void TimerCountdown()
     {
         if (!unlimited)
+        {
             timer -= Time.deltaTime;
+            if(timer <= 0)
+            {
+                GameOver();
+            }
+        }
         else
             timer += Time.deltaTime;
     }
@@ -71,4 +93,19 @@ public class GameManager : MonoBehaviour
         }
         
     }
+
+    public void CheckLives()
+    {
+        if(lives <= 0)
+        {
+            GameOver();
+        }
+    }
+
+    public void GameOver()
+    {
+        finalKills = PlayerStats.Instance.totalKills;
+        SceneManager.LoadScene("EndScene");
+    }
+        
 }

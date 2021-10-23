@@ -20,6 +20,7 @@ public class GameplayUIManager : MonoBehaviour
     private GameObject[] livesSprite;
 
     public DetailsPanel detailsPanel;
+    public TDGrid gameplayGrid;
 
     private void Awake()
     {
@@ -69,10 +70,13 @@ public class GameplayUIManager : MonoBehaviour
 
     public void PauseButton(bool trufal)
     {
-        if (trufal)
+        if (trufal && gameplayGrid.endTile)
             Time.timeScale = 1.0f;
         else
+        {
             Time.timeScale = 0.0f;
+            transform.GetChild(4).GetComponent<Toggle>().isOn = false;
+        }
     }
 
     public void UpdateLifeSprites()

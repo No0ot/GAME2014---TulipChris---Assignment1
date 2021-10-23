@@ -9,10 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuUIManager : MonoBehaviour
 {
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
 
     public void OnPlayModeButtonpressed(bool trufal)
     {
@@ -24,7 +20,7 @@ public class MenuUIManager : MonoBehaviour
         else
         {
             SceneManager.LoadScene("PlayScene");
-            GameManager.Instance.timer = 300;
+            GameManager.Instance.timer = 301;
         }
     }
 

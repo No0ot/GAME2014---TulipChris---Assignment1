@@ -77,6 +77,7 @@ public class EnemyScript : MonoBehaviour
             {
                 GameManager.Instance.lives--;
                 GameplayUIManager.Instance.UpdateLifeSprites();
+                GameManager.Instance.CheckLives();
                 gameObject.SetActive(false);
             }
             else
