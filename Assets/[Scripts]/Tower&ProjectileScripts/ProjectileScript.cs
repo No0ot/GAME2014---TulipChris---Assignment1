@@ -31,6 +31,7 @@ public class ProjectileScript : MonoBehaviour
             if (!targetEnemy.activeSelf)
                 targetEnemy = null;
         }
+        Rotate();
     }
     private void OnEnable()
     {
@@ -76,6 +77,19 @@ public class ProjectileScript : MonoBehaviour
                 enemy.AddReward();
             }
             gameObject.SetActive(false);
+        }
+    }
+
+    private void Rotate()
+    {
+        Vector3 direction = new Vector3(transform.position.x - endPosition.x,
+                                        transform.position.y - endPosition.y,
+                                        0.0f);
+
+        if (direction != Vector3.zero)
+        {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         }
     }
 }

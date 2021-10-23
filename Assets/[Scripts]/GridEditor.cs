@@ -64,12 +64,45 @@ public class GridEditor : MonoBehaviour
 
             if(buyChunk)
             {
-                edited_tile.chunk.SetOwned(true);
+                if (PlayerStats.Instance.gold >= 20)
+                {
+                    edited_tile.chunk.SetOwned(true);
+                    PlayerStats.Instance.gold -= 20;
+                }
+                else
+                    Debug.Log("Need more gold");
             }
 
             if(buyTower)
             {
-                BuyTower(edited_tile);
+                switch(selectTower)
+                {
+                    case TowerType.BASIC:
+                        if(PlayerStats.Instance.gold >= towerManager.factory.basicTowerPrefab.GetComponent<TowerScript>().goldCost)
+                            BuyTower(edited_tile);
+                        else
+                            Debug.Log("Need more gold");
+                        break;
+                    case TowerType.RAPID:
+                        if (PlayerStats.Instance.gold >= towerManager.factory.rapidTowerPrefab.GetComponent<TowerScript>().goldCost)
+                            BuyTower(edited_tile);
+                        else
+                            Debug.Log("Need more gold");
+                        break;
+                    case TowerType.QUAKE:
+                        if (PlayerStats.Instance.gold >= towerManager.factory.quakeTowerPrefab.GetComponent<TowerScript>().goldCost)
+                            BuyTower(edited_tile);
+                        else
+                            Debug.Log("Need more gold");
+                        break;
+                    case TowerType.MISSLE:
+                        if (PlayerStats.Instance.gold >= towerManager.factory.missleTowerPrefab.GetComponent<TowerScript>().goldCost)
+                            BuyTower(edited_tile);
+                        else
+                            Debug.Log("Need more gold");
+                        break;
+                }
+                
             }
 
             if(!setPath && !buyChunk && !buyTower && edited_tile.occupied)

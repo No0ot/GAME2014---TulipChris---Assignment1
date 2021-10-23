@@ -9,7 +9,7 @@ public class TowerManager : MonoBehaviour
     public ProjectileManager missleProjManager;
 
     List<GameObject> towerList;
-    private TowerFactory factory;
+    public TowerFactory factory;
 
 
     // Start is called before the first frame update
@@ -37,7 +37,7 @@ public class TowerManager : MonoBehaviour
         newTower.transform.SetParent(transform);
         towerList.Add(newTower);
 
-
+        PlayerStats.Instance.gold -= newTower.GetComponent<TowerScript>().goldCost;
         return newTower;
     }
 
@@ -47,6 +47,7 @@ public class TowerManager : MonoBehaviour
         {
             if (!tower.activeInHierarchy)
             {
+                PlayerStats.Instance.gold -= tower.GetComponent<TowerScript>().goldCost;
                 return tower;
             }
         }
