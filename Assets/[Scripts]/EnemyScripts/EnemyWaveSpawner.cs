@@ -10,9 +10,9 @@ public class EnemyWaveSpawner : MonoBehaviour
     public EnemyManager tankManager;
 
     float basicTimer = 0f;
-    float armoredTimer = 0f;
+    float armoredTimer = 5f;
     float fastTimer = 0f;
-    float tankTimer = 0f;
+    float tankTimer = 30f;
 
     float timeBtwnBasic = 2.5f;
     float timeBtwnArmored = 5f;

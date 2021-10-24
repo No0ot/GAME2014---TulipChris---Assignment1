@@ -3288,6 +3288,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 83be5e77fbfdb6842baffd4c42c7c2bc, type: 3}
   - {fileID: 8300000, guid: 841e2f4cc659ec746a60f411d8eed187, type: 3}
   - {fileID: 8300000, guid: 5ea111b5de501b1459463f063314d3ab, type: 3}
+  mixergroup:
+  - {fileID: 24300002, guid: 7522ed8d565b7a841972179a3d03e112, type: 2}
+  - {fileID: 12952775522489771, guid: 7522ed8d565b7a841972179a3d03e112, type: 2}
+  - {fileID: -7366354222362560601, guid: 7522ed8d565b7a841972179a3d03e112, type: 2}
+  - {fileID: -4432878691977289824, guid: 7522ed8d565b7a841972179a3d03e112, type: 2}
+  - {fileID: 2549255130236320538, guid: 7522ed8d565b7a841972179a3d03e112, type: 2}
 --- !u!4 &1290629297
 Transform:
   m_ObjectHideFlags: 0

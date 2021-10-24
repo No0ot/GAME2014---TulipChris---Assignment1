@@ -100,4 +100,21 @@ public class GameplayUIManager : MonoBehaviour
                 break;
         }
     }
+
+    public void SetMasterVolume(float volume)
+    {
+        SoundManager.Instance.mixergroup[0].audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        SoundManager.Instance.mixergroup[1].audioMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
+    }
+
+    public void SetEffectsVolume(float volume)
+    {
+        SoundManager.Instance.mixergroup[2].audioMixer.SetFloat("UIVolume", Mathf.Log10(volume) * 20);
+        SoundManager.Instance.mixergroup[3].audioMixer.SetFloat("EnemyVolume", Mathf.Log10(volume) * 20);
+        SoundManager.Instance.mixergroup[4].audioMixer.SetFloat("TowerVolume", Mathf.Log10(volume) * 20);
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class SoundManager : MonoBehaviour
 
     //Enemy Sounds
     public AudioClip[] enemyDie;
+
+    //Mixer Group
+    public AudioMixerGroup[] mixergroup;
 
     private void Awake()
     {
@@ -72,6 +76,7 @@ public class SoundManager : MonoBehaviour
         }
 
         AudioSource temp = transform.GetChild(0).gameObject.AddComponent<AudioSource>();
+        temp.outputAudioMixerGroup = mixergroup[3];
         temp.playOnAwake = false;
         temp.volume = 0.1f;
         enemyAudioSourceList.Add(temp);
@@ -89,6 +94,7 @@ public class SoundManager : MonoBehaviour
         }
 
         AudioSource temp = transform.GetChild(1).gameObject.AddComponent<AudioSource>();
+        temp.outputAudioMixerGroup = mixergroup[4];
         temp.playOnAwake = false;
         temp.volume = 0.1f;
         towerAudioSourceList.Add(temp);
