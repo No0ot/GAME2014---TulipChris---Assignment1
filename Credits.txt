@@ -1,1 +1,23 @@
+CODE SOURCES
+-------------------------------
 https://newbedev.com/csharp-eventsystem-current-ispointerovergameobject-not-working-on-mobile-unity-code-example
+https://catlikecoding.com/unity/tutorials/hex-map/
+
+ART
+-------------------------------------
+https://www.kenney.nl/assets/tower-defense-top-down
+https://wenrexa.itch.io/ui-different01
+https://opengameart.org/content/various-stones-and-oregem-veins-16x16
+https://opengameart.org/content/heart-pixel-art
+
+SOUNDS
+-------------------------------------
+https://opengameart.org/content/through-space
+https://opengameart.org/content/and-then-we-left
+https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks
+https://opengameart.org/content/chaingun-pistol-rifle-shotgun-shots
+https://opengameart.org/content/11-male-human-paindeath-sounds
+https://opengameart.org/content/background-space-track
+
+I've also created a couple of my own sounds using:
+https://www.bfxr.net/
