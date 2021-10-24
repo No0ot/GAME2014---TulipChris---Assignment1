@@ -3271,7 +3271,7 @@ MonoBehaviour:
   gameplayTrack1: {fileID: 8300000, guid: b05e00a25de0e6d468e880a605b9f8e2, type: 3}
   gameplayTrack2: {fileID: 8300000, guid: cc7843a624c22ed49b83206baf3921a1, type: 3}
   digSound: {fileID: 8300000, guid: 623336c40f539c44c9c260c2cdbaff97, type: 3}
-  errorSound: {fileID: 0}
+  errorSound: {fileID: 8300000, guid: cefb3a43b2f3b36478ab8259fc6702cc, type: 3}
   clickForward:
   - {fileID: 8300000, guid: 8ec8a00929f766a4993641f6c76588ff, type: 3}
   - {fileID: 8300000, guid: 45716bb2c193ae74b9d2aeb9e6ffeab2, type: 3}

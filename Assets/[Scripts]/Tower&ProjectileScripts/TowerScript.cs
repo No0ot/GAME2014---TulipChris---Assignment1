@@ -27,19 +27,25 @@ public class TowerScript : MonoBehaviour
     public int steelCost;
 
     public GameObject targetEnemy;
-    List<GameObject> enemysInRange;
+    public List<GameObject> enemysInRange;
     public ProjectileManager projectileManager;
+
+    CircleCollider2D rangeCollider;
 
     private void Start()
     {
         targetEnemy = null;
         enemysInRange = new List<GameObject>();
+        rangeCollider = GetComponent<CircleCollider2D>();
+        rangeCollider.radius = range;
     }
 
     private void Update()
     {
         if(fireRateCounter <= fireRate)
             fireRateCounter += Time.deltaTime;
+
+        CheckTargetRange();
         if (!targetEnemy)
             FindEnemy();
         else
@@ -72,8 +78,8 @@ public class TowerScript : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        //Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.5f);
-        //Gizmos.DrawSphere(transform.position, range);
+        Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.5f);
+        Gizmos.DrawSphere(transform.position, range);
 
     }
 
@@ -127,6 +133,7 @@ public class TowerScript : MonoBehaviour
                 PlayerStats.Instance.iron -= ironCost;
                 fireRate *= 0.8f;
                 range *= 1.1f;
+                rangeCollider.radius = range;
             }
             else if(level == 3)
             {
@@ -134,6 +141,21 @@ public class TowerScript : MonoBehaviour
                 PlayerStats.Instance.steel -= steelCost;
                 fireRate *= 0.8f;
                 range *= 1.1f;
+                rangeCollider.radius = range;
+            }
+        }
+    }
+
+    public void CheckTargetRange()
+    {
+        if(targetEnemy)
+        {
+            float distanceT = Vector3.Distance(transform.position, targetEnemy.transform.position);
+
+            if(distanceT > range + 0.5)
+            {
+                enemysInRange.Remove(targetEnemy.gameObject);
+                targetEnemy = null;
             }
         }
     }

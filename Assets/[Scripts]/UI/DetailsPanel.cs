@@ -151,15 +151,21 @@ public class DetailsPanel : MonoBehaviour
             {
                 case 1:
                     if (PlayerStats.Instance.iron >= towerReference.ironCost)
+                    {
                         towerReference.UpgradeTower();
+                        Refresh();
+                    }
                     else
-                        Debug.Log("Need more Iron");
+                        GameplayUIManager.Instance.DisplayErrorText("Need more iron!");
                     break;
                 case 2:
                     if (PlayerStats.Instance.steel >= towerReference.steelCost)
+                    {
                         towerReference.UpgradeTower();
+                        Refresh();
+                    }
                     else
-                        Debug.Log("Need more Steel");
+                        GameplayUIManager.Instance.DisplayErrorText("Need more steel!");
                     break;
                 case 3:
                     // find something to do here

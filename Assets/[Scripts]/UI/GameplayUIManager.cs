@@ -22,6 +22,7 @@ public class GameplayUIManager : MonoBehaviour
     public DetailsPanel detailsPanel;
     public TDGrid gameplayGrid;
 
+    public GameObject errorText;
     private void Awake()
     {
         instance = this;
@@ -116,5 +117,34 @@ public class GameplayUIManager : MonoBehaviour
         SoundManager.Instance.mixergroup[2].audioMixer.SetFloat("UIVolume", Mathf.Log10(volume) * 20);
         SoundManager.Instance.mixergroup[3].audioMixer.SetFloat("EnemyVolume", Mathf.Log10(volume) * 20);
         SoundManager.Instance.mixergroup[4].audioMixer.SetFloat("TowerVolume", Mathf.Log10(volume) * 20);
+    }
+
+    public void DisplayErrorText(string text)
+    {
+        SoundManager.Instance.PlayErrorSound();
+        errorText.SetActive(true);
+        errorText.transform.GetChild(0).GetComponent<TMP_Text>().text = text;
+        StartCoroutine(ErrorTextDisplaylength());
+    }
+
+    private IEnumerator ErrorTextDisplaylength()
+    {
+        float timer = 0;
+        float timerMax = 3;
+        do
+        {
+            //timer += Time.deltaTime;
+            timer += 0.01f;
+            yield return null;
+
+        } while (timer < timerMax);
+
+        if (timer >= timerMax)
+        {
+            errorText.SetActive(false);
+            StopCoroutine(ErrorTextDisplaylength());
+            yield return null;
+        }
+
     }
 }

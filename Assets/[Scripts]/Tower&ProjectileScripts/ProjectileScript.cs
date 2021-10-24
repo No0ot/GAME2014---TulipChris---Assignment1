@@ -25,12 +25,12 @@ public class ProjectileScript : MonoBehaviour
 
     private void Update()
     {
-        Move();
         if (targetEnemy)
         {
             if (!targetEnemy.activeSelf)
                 targetEnemy = null;
         }
+        Move();
         Rotate();
     }
     private void OnEnable()
@@ -68,15 +68,18 @@ public class ProjectileScript : MonoBehaviour
     {
         if(collision.CompareTag("Enemy"))
         {
-            EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript>();
-            enemy.TakeDamage(damage);
-            if(!enemy.CheckHealth())
+            if (collision.gameObject == targetEnemy)
             {
-                towerOwner.kills++;
-                PlayerStats.Instance.totalKills++;
-                enemy.AddReward();
+                EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript>();
+                enemy.TakeDamage(damage);
+                if (!enemy.CheckHealth())
+                {
+                    towerOwner.kills++;
+                    PlayerStats.Instance.totalKills++;
+                    enemy.AddReward();
+                }
+                gameObject.SetActive(false);
             }
-            gameObject.SetActive(false);
         }
     }
 

@@ -18,11 +18,13 @@ public class EndSceneManager : MonoBehaviour
     {
         if (trufal)
         {
+            SoundManager.Instance.PlayRandomClickForward();
             GameManager.Instance.unlimited = true;
             SceneManager.LoadScene("PlayScene");
         }
         else
         {
+            SoundManager.Instance.PlayRandomClickForward();
             SceneManager.LoadScene("PlayScene");
             GameManager.Instance.timer = 301;
         }
@@ -30,6 +32,7 @@ public class EndSceneManager : MonoBehaviour
 
     public void MainMenuButtonPressed()
     {
+        SoundManager.Instance.PlayRandomClickBackward();
         Destroy(GameManager.Instance.gameObject);
         Destroy(SoundManager.Instance.gameObject);
         SceneManager.LoadScene("MainMenu");

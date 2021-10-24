@@ -70,7 +70,7 @@ public class GridEditor : MonoBehaviour
                     PlayerStats.Instance.gold -= 20;
                 }
                 else
-                    Debug.Log("Need more gold");
+                    GameplayUIManager.Instance.DisplayErrorText("Need more gold!");
             }
 
             if(buyTower)
@@ -81,37 +81,39 @@ public class GridEditor : MonoBehaviour
                         if(PlayerStats.Instance.gold >= towerManager.factory.basicTowerPrefab.GetComponent<TowerScript>().goldCost)
                             BuyTower(edited_tile);
                         else
-                            Debug.Log("Need more gold");
+                            GameplayUIManager.Instance.DisplayErrorText("Need more gold!");
                         break;
                     case TowerType.RAPID:
                         if (PlayerStats.Instance.gold >= towerManager.factory.rapidTowerPrefab.GetComponent<TowerScript>().goldCost)
                             BuyTower(edited_tile);
                         else
-                            Debug.Log("Need more gold");
+                            GameplayUIManager.Instance.DisplayErrorText("Need more gold!");
                         break;
                     case TowerType.QUAKE:
                         if (PlayerStats.Instance.gold >= towerManager.factory.quakeTowerPrefab.GetComponent<TowerScript>().goldCost)
                             BuyTower(edited_tile);
                         else
-                            Debug.Log("Need more gold");
+                            GameplayUIManager.Instance.DisplayErrorText("Need more gold!");
                         break;
                     case TowerType.MISSLE:
                         if (PlayerStats.Instance.gold >= towerManager.factory.missleTowerPrefab.GetComponent<TowerScript>().goldCost)
                             BuyTower(edited_tile);
                         else
-                            Debug.Log("Need more gold");
+                            GameplayUIManager.Instance.DisplayErrorText("Need more gold!");
                         break;
                 }
                 
             }
 
-            if(!setPath && !buyChunk && !buyTower && edited_tile.occupied)
+            if (!setPath && !buyChunk && !buyTower && edited_tile.occupied)
             {
                 GameplayUIManager.Instance.detailsPanel.gameObject.SetActive(true);
                 GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(edited_tile.occupiedTowerReference, DetailsPanelSetting.UPGRADE);
             }
-            else if(!setPath && !buyChunk && !buyTower)
+            else if (!setPath && !buyChunk && !buyTower)
+            {
                 GameplayUIManager.Instance.detailsPanel.gameObject.SetActive(false);
+            }
         }
     }
 

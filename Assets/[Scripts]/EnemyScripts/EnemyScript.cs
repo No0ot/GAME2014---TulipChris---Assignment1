@@ -102,8 +102,8 @@ public class EnemyScript : MonoBehaviour
         if (currentHealth <= 0)
         {
             SoundManager.Instance.PlayRandomEnemyDeathSound();
+            transform.position = Vector3.zero;
             gameObject.SetActive(false);
-            
             return false;
         }
         UpdateLifeBar();
