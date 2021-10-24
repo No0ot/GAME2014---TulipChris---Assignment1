@@ -79,8 +79,13 @@ public class GridEditor : MonoBehaviour
             {
                 if (PlayerStats.Instance.gold >= 20)
                 {
-                    edited_tile.chunk.SetOwned(true);
-                    PlayerStats.Instance.gold -= 20;
+                    if (!edited_tile.chunk.owned)
+                    {
+                        edited_tile.chunk.SetOwned(true);
+                        PlayerStats.Instance.gold -= 20;
+                    }
+                    else
+                        GameplayUIManager.Instance.DisplayErrorText("Already owned Chunk!");
                 }
                 else
                     GameplayUIManager.Instance.DisplayErrorText("Need more gold!");
