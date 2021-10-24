@@ -22,6 +22,7 @@ public class MenuUIManager : MonoBehaviour
         {
             GameManager.Instance.unlimited = true;
             SceneManager.LoadScene("PlayScene");
+            GameManager.Instance.timer = 0;
         }
         else
         {

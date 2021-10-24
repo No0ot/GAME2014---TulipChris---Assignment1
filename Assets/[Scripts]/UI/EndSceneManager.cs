@@ -33,6 +33,7 @@ public class EndSceneManager : MonoBehaviour
             SoundManager.Instance.PlayRandomClickForward();
             GameManager.Instance.unlimited = true;
             SceneManager.LoadScene("PlayScene");
+            GameManager.Instance.timer = 0;
         }
         else
         {
