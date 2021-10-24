@@ -1,7 +1,11 @@
-//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
-// CHRIS TULIP 100 818 050
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 24, 2021
+//      File            : CameraScript.cs
+//      Description     : This controls the camera, parts of this script were taken from https://catlikecoding.com/unity/tutorials/hex-map/
+//      History         :   v0.5 - Camera Controls added
+//                          v1.0 - Implemented Clamping
 //
-// A script to handle movement of the camera. Currently does not work as it is using desktop controls and the build mode is currently set to android.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +31,9 @@ public class CameraScript : MonoBehaviour
             return;
         HandleInput();
     }
-
+    /// <summary>
+    /// Handles all input. Desktop Input along with calling TouchInput() function
+    /// </summary>
     void HandleInput()
     {
         float zoomDelta = Input.GetAxis("Mouse ScrollWheel");
@@ -41,7 +47,10 @@ public class CameraScript : MonoBehaviour
 
         TouchInput();
     }
-
+    /// <summary>
+    /// zooms the camera out, only works on desktop.
+    /// </summary>
+    /// <param name="delta"></param>
     void AdjustZoom(float delta)
     {
         zoom = Mathf.Clamp01(zoom + delta);
@@ -50,7 +59,11 @@ public class CameraScript : MonoBehaviour
         camera.orthographicSize = distance;
         //transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, distance);
     }
-
+    /// <summary>
+    /// Moves the camera around
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     void AdjustPosition(float x, float y)
     {
         Vector3 direction = new Vector3(x, y).normalized;
@@ -59,7 +72,11 @@ public class CameraScript : MonoBehaviour
         position += new Vector3(direction.x * panSpeed, direction.y * panSpeed, 0f);
         transform.localPosition = ClampPosition(position);
     }
-
+    /// <summary>
+    /// Clamps the camera so it cannot move outside the bounds of the grid.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
     Vector3 ClampPosition(Vector3 position)
     {
         float xMax = (grid.chunkCountX * Config.chunkSize - 0.5f) * Config.tileSize;
@@ -70,7 +87,9 @@ public class CameraScript : MonoBehaviour
 
         return position;
     }
-
+    /// <summary>
+    /// Touch Input
+    /// </summary>
     void TouchInput()
     {
         if (Input.touchCount > 0)
@@ -83,7 +102,10 @@ public class CameraScript : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// EventSystem.current.IsPointerOverGameObject() was not working properly so i did some research and found this function : https://stackoverflow.com/questions/57010713/unity-ispointerovergameobject-issue
+    /// </summary>
+    /// <returns></returns>
     private bool IsPointerOverUIObject()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);

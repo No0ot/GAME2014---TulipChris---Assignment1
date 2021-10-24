@@ -1,3 +1,12 @@
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 24, 2021
+//      File            : SoundManager.cs
+//      Description     : Singleton containing all needed audio clips that can be accessed and played on attached audio sources.
+//      History         :   v0.5 - Added References to all Audio Clips and created corresponding functions to access and play the sounds.
+//                          v0.7 - Created "Manager" like functions to dynamically instantiate the needed number of audio Sources for enemy units and towers.
+// 
+//
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,6 +57,9 @@ public class SoundManager : MonoBehaviour
         enemyAudioSourceList = new List<AudioSource>();
         towerAudioSourceList = new List<AudioSource>();
     }
+    /// <summary>
+    /// Switches between music tracks in gameplay scene.
+    /// </summary>
     private void Update()
     {
         if (!bgMusicSource.isPlaying)
@@ -64,7 +76,10 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Dynamically creating and getting audio sources for enemy sounds sources. I did this so all enemies can make sounds at the same time.
+    /// </summary>
+    /// <returns></returns>
     public AudioSource GetEnemyAudioSource()
     {
         foreach(AudioSource source in enemyAudioSourceList)
@@ -82,7 +97,10 @@ public class SoundManager : MonoBehaviour
         enemyAudioSourceList.Add(temp);
         return temp;
     }
-
+    /// <summary>
+    /// Dynamically creating and getting audio sources for tower sounds.
+    /// </summary>
+    /// <returns></returns>
     public AudioSource GetTowerAudioSource()
     {
         foreach (AudioSource source in towerAudioSourceList)
@@ -100,19 +118,25 @@ public class SoundManager : MonoBehaviour
         towerAudioSourceList.Add(temp);
         return temp;
     }
-
+    /// <summary>
+    /// Plays towerBuild sound.
+    /// </summary>
     public void PlayTowerBuild()
     {
         uiSoundSource.clip = towerBuild;
         uiSoundSource.Play();
     }
-
+    /// <summary>
+    /// Plays Tower Upgrade Sound.
+    /// </summary>
     public void PlayTowerUpgrade()
     {
         uiSoundSource.clip = towerUpgrade;
         uiSoundSource.Play();
     }
-
+    /// <summary>
+    /// Plays Main Menu/End Menu music
+    /// </summary>
     public void PlayMenuMusic()
     {
         menuMusicSource.Stop();
@@ -121,7 +145,9 @@ public class SoundManager : MonoBehaviour
         menuMusicSource.clip = menuMusic;
         menuMusicSource.Play();
     }
-
+    /// <summary>
+    /// Plays initial Gameplay music track
+    /// </summary>
     public void PlayGameplayMusic()
     {
         menuMusicSource.Stop();
@@ -129,38 +155,51 @@ public class SoundManager : MonoBehaviour
         bgMusicSource.clip = gameplayTrack1;
         bgMusicSource.Play();
     }
-
+    /// <summary>
+    /// Plays dig Sound.
+    /// </summary>
     public void PlayDigSound()
     {
         uiSoundSource.clip = digSound;
         uiSoundSource.Play();
     }
-
+    /// <summary>
+    /// Plays error sound.
+    /// </summary>
     public void PlayErrorSound()
     {
         uiSoundSource.clip = errorSound;
         uiSoundSource.Play();
     }
-
+    /// <summary>
+    /// Plays a random click sound for moving forward in menus.
+    /// </summary>
     public void PlayRandomClickForward()
     {
         uiSoundSource.clip = clickForward[Random.Range(0, (clickForward.Length))];
         uiSoundSource.Play();
     }
-
+    /// <summary>
+    /// Plays a random click sound for moving backward in menus.
+    /// </summary>
     public void PlayRandomClickBackward()
     {
         uiSoundSource.clip = clickBack[Random.Range(0, (clickBack.Length))];
         uiSoundSource.Play();
     }
-
+    /// <summary>
+    /// Gets an audio source and plays a random enemy death sound.
+    /// </summary>
     public void PlayRandomEnemyDeathSound()
     {
-        AudioSource temp = SoundManager.Instance.GetEnemyAudioSource();
+        AudioSource temp = GetEnemyAudioSource();
         temp.clip = enemyDie[Random.Range(0, (enemyDie.Length))];
         temp.Play();
     }
-
+    /// <summary>
+    /// Plays a different tower shoot sound based on which tower is accessing the function.
+    /// </summary>
+    /// <param name="type"></param>
     public void PlayTowerShoot(TowerType type)
     {
         AudioSource temp = GetTowerAudioSource();

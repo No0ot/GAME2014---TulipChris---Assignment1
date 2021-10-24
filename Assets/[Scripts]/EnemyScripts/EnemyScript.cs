@@ -1,3 +1,13 @@
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 23, 2021
+//      File            : EnemyScript.cs
+//      Description     : This script contains the behaviours to be used on the attached enemy.
+//      History         :   v0.3 - Created script and had enemies follow path created for them
+//                          v0.5 - Enemies now take damage and despawn on death.
+//                          v0.7 - Added Rotate method(steering behaviour) and Life bar
+//                          v0.9 - Added Sounds
+//
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -61,14 +71,18 @@ public class EnemyScript : MonoBehaviour
         Move();
         Rotate();
     }
-
+    /// <summary>
+    /// Moves the enemy from one tile to the next.
+    /// </summary>
     private void Move()
     {
         float distCovered = (Time.time - startTime) * moveSpeed;
         float fractionOfJourney = distCovered / journeyLength;
         transform.position = Vector3.Lerp(currentTile.transform.position, targetTile.transform.position, fractionOfJourney);
     }
-
+    /// <summary>
+    /// Checks the distance to the target tile to see if it needs to update the target tile or if it reaches the end of the path takes a life away.
+    /// </summary>
     private void CheckDistance()
     {
         float distance = Vector3.Distance(transform.position, targetTile.transform.position);
@@ -90,6 +104,10 @@ public class EnemyScript : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Method used to take damage.
+    /// </summary>
+    /// <param name="damage"></param>
     public void TakeDamage(float damage)
     {
         if (!armored)
@@ -97,6 +115,10 @@ public class EnemyScript : MonoBehaviour
         else
             currentHealth -= damage / 2;
     }
+    /// <summary>
+    /// Checks the health of the enemy to see if it needs to be "killed" and despawned
+    /// </summary>
+    /// <returns></returns>
     public bool CheckHealth()
     {
         if (currentHealth <= 0)
@@ -109,20 +131,26 @@ public class EnemyScript : MonoBehaviour
         UpdateLifeBar();
         return true;
     }
-
+    /// <summary>
+    /// Adds reward to the player if killed.
+    /// </summary>
     public void AddReward()
     {
         PlayerStats.Instance.gold += goldReward;
         PlayerStats.Instance.iron += ironReward;
         PlayerStats.Instance.steel += steelReward;
     }
-
+    /// <summary>
+    /// Updates the Life bar of the enemy.
+    /// </summary>
     void UpdateLifeBar()
     {
         float temp = (float)currentHealth / (float)maxHealth;
         greenLifeBar.transform.localScale = new Vector3(1.0f * temp, greenLifeBar.transform.localScale.y, greenLifeBar.transform.localScale.z);
     }
-
+    /// <summary>
+    /// rotates the enemy to face the direction they are currently moving. Also makes sure the life bar doesnt rotate with the enemy.
+    /// </summary>
     void Rotate()
     {
         Vector3 direction = new Vector3(targetTile.transform.position.x - currentTile.transform.position.x,

@@ -1,3 +1,12 @@
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 24, 2021
+//      File            : TowerScript.cs
+//      Description     : This script contains behaviours for the tower objects.
+//      History         :   v0.5 - Created the script along with the initial functions and enum used for the functionality (FindEnemy and Shoot methods along with trigger methods).
+//                          v0.7 - Added Rotate() and upgrade tower Methods
+//                          v0.9 - Added an additional check to see if the target enemy is out of range as it wasn't always working with the triggers.
+//
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,7 +61,9 @@ public class TowerScript : MonoBehaviour
             Shoot();
         Rotate();
     }
-
+    /// <summary>
+    /// Initially used to check distance between all enemies, now just returns the first in the list
+    /// </summary>
     private void FindEnemy()
     {
         if(enemysInRange.Count > 0)
@@ -60,7 +71,9 @@ public class TowerScript : MonoBehaviour
             targetEnemy = enemysInRange[0];
         }
     }
-
+    /// <summary>
+    /// Gets a projectile from the corresponding manager and sets its target,damage and makes it active.
+    /// </summary>
     private void Shoot()
     {
         if (fireRateCounter >= fireRate)
@@ -75,14 +88,19 @@ public class TowerScript : MonoBehaviour
             fireRateCounter = 0f;
         }
     }
-
+    /// <summary>
+    /// Gizmos to show range in editor
+    /// </summary>
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.5f);
         Gizmos.DrawSphere(transform.position, range);
 
     }
-
+    /// <summary>
+    /// If an enemy enters the collider(range) adds it to the list.
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
@@ -91,7 +109,10 @@ public class TowerScript : MonoBehaviour
             //Debug.Log("enter");
         }
     }
-
+    /// <summary>
+    /// If an enemy exits the collider(range) removes it from the list and if the enemy is the target enemy, set target enemy to null
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
@@ -103,7 +124,9 @@ public class TowerScript : MonoBehaviour
             //Debug.Log("exit");
         }
     }
-
+    /// <summary>
+    /// Rotates the turret to face the target enemy.
+    /// </summary>
     void Rotate()
     {
         if (targetEnemy)
@@ -120,7 +143,9 @@ public class TowerScript : MonoBehaviour
         else
             transform.Rotate(new Vector3(0.0f, 0.0f, 10.0f * Time.deltaTime), Space.World);
     }
-
+    /// <summary>
+    /// Method used to update the tower and its stats when upgraded.
+    /// </summary>
     public void UpgradeTower()
     {
         if(level < 3)
@@ -145,7 +170,9 @@ public class TowerScript : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Additonal check on the target enemy to see if its in range, Did this because the triggers didnt always work.
+    /// </summary>
     public void CheckTargetRange()
     {
         if(targetEnemy)

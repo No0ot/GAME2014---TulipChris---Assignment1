@@ -1,7 +1,12 @@
-//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
-// CHRIS TULIP 100 818 050
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 6, 2021
+//      File            : Tile.cs
+//      Description     : Script for the tiles that keep track of their own neighbours and pathfinding information. Taken from https://catlikecoding.com/unity/tutorials/hex-map/ but adapted to square grid.
+//      History         :   v0.5 - Created tile class/Pathfinding State enum and Directions enum. Tiles keep track of their neighbours 
+//                          v0.7 - Added Interact state enum and a reference to the next tile along the path(if the tile is part of the path);
+//                          v0.9 - Added occupied bool and a reference to the tower that would be occupying the tile.
 //
-// A script for Tile prefabs to handle their behaviours. Also includes the enums used.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,6 +70,9 @@ public class Tile : MonoBehaviour
     {
         tileSprite = GetComponent<SpriteRenderer>();
     }
+    /// <summary>
+    /// Refreshes the tile to update sprite of the tile if a change happens to either the pathfinding state or the interact state.
+    /// </summary>
     public void Refresh()
     {
         switch(pathfindingState)
@@ -109,18 +117,30 @@ public class Tile : MonoBehaviour
         pathfindingState = state;
         Refresh();
     }
-
+    /// <summary>
+    /// Returns a reference to the neighbour in the passed in direction
+    /// </summary>
+    /// <param name="neighbour_direction"></param>
+    /// <returns></returns>
     public Tile GetNeighbour(Directions neighbour_direction)
     {
         return neighbours[(int)neighbour_direction];
     }
-
+    /// <summary>
+    /// Sets the neighbour in the passed in direction along with the opposite neighbour of the direction
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="tile"></param>
     public void SetNeighbour(Directions direction, Tile tile)
     {
         neighbours[(int)direction] = tile;
         tile.neighbours[(int)GetOppositeNeighbour(direction)] = this;
     }
-
+    /// <summary>
+    /// returns a Direction(enum) that is opposite to the passed in direction
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns></returns>
     public Directions GetOppositeNeighbour(Directions direction)
     {
         return (int)direction < 2 ? (direction + 2) : (direction - 2);

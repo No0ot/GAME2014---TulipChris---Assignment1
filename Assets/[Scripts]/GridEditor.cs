@@ -1,7 +1,14 @@
-//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
-// CHRIS TULIP 100 818 050
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 24, 2021
+//      File            : GridEditor.cs
+//      Description     : This script is waht controls any editing to the grid. Main script for the player interacting with the game.
+//                        Parts of it were taken from: https://catlikecoding.com/unity/tutorials/hex-map/
+//      History         :   v0.2 - tiles can be accessed using mouse or touch
+//                          v0.5 - Functionality for digging the maze added along with buying additional "chunks"
+//                          v0.7 - Functionality for building towers added.
+//                          v1.0 - Functionality for detail panel added which allows players to see more detailed information about towers prior to building along with upgrade panel for alrady built towers.
 //
-// A script that handles any of the functions that make changes to the grid. It is basically the player controller.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +45,9 @@ public class GridEditor : MonoBehaviour
                 HandleInput();
         }
     }
-
+    /// <summary>
+    /// Handles Input, Checks if the touch/pointer is over a UI object if not and the raycast hits a tile, edits the tile.
+    /// </summary>
     void HandleInput()
     {
         if (IsPointerOverUIObject())
@@ -52,16 +61,20 @@ public class GridEditor : MonoBehaviour
             EditTile(gameplayGrid.GetTile(hit.point));
         }
     }
-
+    /// <summary>
+    /// Edits the tile based on the currently active Bool. Can dig out the maze, buy additional Chunks, buy/place towers and access details about placed towers
+    /// </summary>
+    /// <param name="edited_tile"></param>
     void EditTile(Tile edited_tile)
     {
         if(edited_tile)
         {
+            //Dig path call
             if(setPath && edited_tile.chunk.owned)
             {
                 DigTile(edited_tile);
             }
-
+            //Buy chunk call
             if(buyChunk)
             {
                 if (PlayerStats.Instance.gold >= 20)
@@ -72,7 +85,7 @@ public class GridEditor : MonoBehaviour
                 else
                     GameplayUIManager.Instance.DisplayErrorText("Need more gold!");
             }
-
+            //Buy tower call
             if(buyTower)
             {
                 switch(selectTower)
@@ -104,25 +117,33 @@ public class GridEditor : MonoBehaviour
                 }
                 
             }
-
+            // if selected tile has a tower occupying it, passes in a reference of the tower to the details panel
             if (!setPath && !buyChunk && !buyTower && edited_tile.occupied)
             {
                 GameplayUIManager.Instance.detailsPanel.gameObject.SetActive(true);
                 GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(edited_tile.occupiedTowerReference, DetailsPanelSetting.UPGRADE);
             }
+            // If a tile with no tower is selected, removes the detail panel.
             else if (!setPath && !buyChunk && !buyTower)
             {
                 GameplayUIManager.Instance.detailsPanel.gameObject.SetActive(false);
             }
         }
     }
-
+    /// <summary>
+    /// Toggle function for setting buyChunk bool
+    /// </summary>
+    /// <param name="trufal"></param>
     public void SetBuyChunk(bool trufal)
     {
         SoundManager.Instance.PlayRandomClickForward();
         gameplayGrid.ResetTileStates();
         buyChunk = trufal;
     }
+    /// <summary>
+    /// Toggle function for setting setPath bool
+    /// </summary>
+    /// <param name="trufal"></param>
     public void SetBuildPath(bool trufal)
     {
         SoundManager.Instance.PlayRandomClickForward();
@@ -138,6 +159,10 @@ public class GridEditor : MonoBehaviour
             setPath = trufal;
         }
     }
+    /// <summary>
+    /// Toggle function for buyTower bool, also brings up detail panel
+    /// </summary>
+    /// <param name="trufal"></param>
     public void SetBuyTower(bool trufal)
     {
         SoundManager.Instance.PlayRandomClickForward();
@@ -154,7 +179,12 @@ public class GridEditor : MonoBehaviour
             buyTower = trufal;
         }
     }
-    // I hate that im doing this but I want to use toggles for this and cant think of another option at the moment
+
+    // I hate that im doing this but I want to use toggles for this and cant think of another option at the moment.
+    /// <summary>
+    /// Sets selectTower to Basic tower.
+    /// </summary>
+    /// <param name="trufal"></param>
     public void setTower1(bool trufal)
     {
         SoundManager.Instance.PlayRandomClickForward();
@@ -162,6 +192,10 @@ public class GridEditor : MonoBehaviour
         selectTower = TowerType.BASIC;
         GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
+    /// <summary>
+    /// sets SelectTower to Rapid tower
+    /// </summary>
+    /// <param name="trufal"></param>
     public void setTower2(bool trufal)
     {
         SoundManager.Instance.PlayRandomClickForward();
@@ -169,6 +203,10 @@ public class GridEditor : MonoBehaviour
         selectTower = TowerType.RAPID;
         GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
+    /// <summary>
+    /// sets SelectTower to Quake tower(not implemented)
+    /// </summary>
+    /// <param name="trufal"></param>
     public void setTower3(bool trufal)
     {
         SoundManager.Instance.PlayRandomClickForward();
@@ -176,6 +214,10 @@ public class GridEditor : MonoBehaviour
         selectTower = TowerType.QUAKE;
         GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
+    /// <summary>
+    /// sets selectTower to Missle tower(not implemented)
+    /// </summary>
+    /// <param name="trufal"></param>
     public void setTower4(bool trufal)
     {
         SoundManager.Instance.PlayRandomClickForward();
@@ -183,9 +225,10 @@ public class GridEditor : MonoBehaviour
         selectTower = TowerType.MISSLE;
         GameplayUIManager.Instance.detailsPanel.UpdateTargetReference(selectTower, DetailsPanelSetting.BUILD);
     }
-
-
-    //EventSystem.current.IsPointerOverGameObject() was not working properly so i did some research and found this function : https://stackoverflow.com/questions/57010713/unity-ispointerovergameobject-issue
+    /// <summary>
+    /// //EventSystem.current.IsPointerOverGameObject() was not working properly so i did some research and found this function : https://stackoverflow.com/questions/57010713/unity-ispointerovergameobject-issue
+    /// </summary>
+    /// <returns></returns>
     private bool IsPointerOverUIObject()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
@@ -194,7 +237,9 @@ public class GridEditor : MonoBehaviour
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
         return results.Count > 0;
     }
-
+    /// <summary>
+    /// Function to get the diggable triles, passes in the end tile to build off of. If end tile doesnt exist passes in the start tile.
+    /// </summary>
     private void GetDiggableTiles()
     {
        if(gameplayGrid.endTile == null)
@@ -206,7 +251,10 @@ public class GridEditor : MonoBehaviour
             ShowDigTiles(gameplayGrid.endTile);
        }
     }
-
+    /// <summary>
+    /// Shows the tiles eligble to be dug out for the maze. To be eligble the tile has to be next to the passed in tile and none of its neighbours can be next to another tile of path.
+    /// </summary>
+    /// <param name="firstile"></param>
     private void ShowDigTiles(Tile firstile)
     {
         Tile[] neighbours = firstile.neighbours;
@@ -239,7 +287,10 @@ public class GridEditor : MonoBehaviour
                 continue;
         }
     }
-
+    /// <summary>
+    /// Sets the tile state to path if it is elible gets a reference to the tile being built off of for enemy pathfinding.
+    /// </summary>
+    /// <param name="selected_tile"></param>
     private void DigTile(Tile selected_tile)
     {
         if(gameplayGrid.endTile == null)
@@ -271,7 +322,9 @@ public class GridEditor : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Shows tiles elible to be built on.
+    /// </summary>
     private void ShowBuildTiles()
     {
         foreach(Tile tile in gameplayGrid.GetTileList())
@@ -283,7 +336,10 @@ public class GridEditor : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Places the selceted tower on the tile that is passed in.
+    /// </summary>
+    /// <param name="selected_tile"></param>
     private void BuyTower(Tile selected_tile)
     {
         if (selected_tile.interactState == InteractState.GOOD)

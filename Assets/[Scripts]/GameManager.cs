@@ -1,8 +1,12 @@
-//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
-// CHRIS TULIP 100 818 050
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 23, 2021
+//      File            : GameManager.cs
+//      Description     : Singleton class for game related properties
+//      History         :   v0.5 - Added timer functionality and game over state.
+//                          v0.7 - Added regenerating lives functionality
+//                          v1.0 - Added difficulty increase implementation
 //
-// A script to handle global gameplay variables such as the game timer and player kills to transfer these variables between scenes.
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,7 +39,10 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
     }
-
+    /// <summary>
+    /// Sets music when a specific level is loaded along with the starting gameplay variables for the gameplay scene
+    /// </summary>
+    /// <param name="level"></param>
     private void OnLevelWasLoaded(int level)
     {
         switch(level)
@@ -74,7 +81,9 @@ public class GameManager : MonoBehaviour
             NewUnitEnabled();
         }
     }
-
+    /// <summary>
+    /// Simple function for Timer functionality
+    /// </summary>
     void TimerCountdown()
     {
         if (!unlimited)
@@ -88,7 +97,10 @@ public class GameManager : MonoBehaviour
         else
             timer += Time.deltaTime;
     }
-
+    /// <summary>
+    /// Co-routine started once the player loses a life. When completed regenerates a life.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator LifeRegenerate()
     {
         lifeTimer = 0;
@@ -110,7 +122,9 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// Checks the players life to see if it needs to Game Over.
+    /// </summary>
     public void CheckLives()
     {
         if (lives <= 0)
@@ -118,13 +132,17 @@ public class GameManager : MonoBehaviour
             GameOver();
         }
     }
-
+    /// <summary>
+    /// Game over Function used to load the end scene and pass in the total kills to be displayed there.
+    /// </summary>
     public void GameOver()
     {
         finalKills = PlayerStats.Instance.totalKills;
         SceneManager.LoadScene("EndScene");
     }
-
+    /// <summary>
+    /// Every 30 seconds the difficulty of the game increases by incrementing the health of enemies and decrementing the time between enemy spawns.
+    /// </summary>
     void TimedDifficultyIncrease()
     {
         if (difficultyTimer >= 30f)
@@ -136,7 +154,9 @@ public class GameManager : MonoBehaviour
         else
             difficultyTimer += Time.deltaTime;
     }
-
+    /// <summary>
+    /// At specific times a new enemy will start spawning.
+    /// </summary>
     void NewUnitEnabled()
     {
         if (newUnitTimer >= 30f && !enemySpawner.fastActive)

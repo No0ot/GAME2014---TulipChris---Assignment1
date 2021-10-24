@@ -1,3 +1,11 @@
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 21, 2021
+//      File            : PlayerStats.cs
+//      Description     : Singleton containing player related variables such as resources and totalkills
+//      History         :   v0.5 - Created the class
+//                          v0.7 - Added a reference to the EnemyWaveSpawner to be easily passed into the GameManager
+//
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,11 +30,5 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         gold = 60;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

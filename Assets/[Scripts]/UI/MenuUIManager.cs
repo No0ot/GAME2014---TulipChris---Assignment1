@@ -1,7 +1,10 @@
-//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
-// CHRIS TULIP 100 818 050
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 3, 2021
+//      File            : MenuUIManager.cs
+//      Description     : This script contains methods used on the main menu scene.
+//      History         :   v0.5 - Added methods to the corresponding button presses.
 //
-// A script to handle all menu buttons for the main menu and end scene
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +12,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuUIManager : MonoBehaviour
 {
+    /// <summary>
+    /// Each playmode button passes in a bool to the gamemanager to set the type of game to be played(timed or unlimited).
+    /// </summary>
+    /// <param name="trufal"></param>
     public void OnPlayModeButtonpressed(bool trufal)
     {
         if (trufal)
@@ -22,20 +29,9 @@ public class MenuUIManager : MonoBehaviour
             GameManager.Instance.timer = 301;
         }
     }
-
-    public void MainMenuButtonPressed()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void OnPlayToggle(bool trufal)
-    {
-        if (trufal)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-    }
-
+    /// <summary>
+    /// Button to quit the game
+    /// </summary>
     public void QuitButtonPressed()
     {
         Application.Quit();

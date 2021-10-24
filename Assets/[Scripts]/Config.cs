@@ -1,7 +1,10 @@
-//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
-// CHRIS TULIP 100 818 050
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : September 28, 2021
+//      File            : Config.cs
+//      Description     : This script contains a static class for holding global static variables mostly dealing with grid properties
+//      History         :   v0.5 - Added static properties the grid can access along with function to get tile position based on a passed in position.
 //
-// A config class to store const variables and static functions.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +17,11 @@ public static class Config
 
     public const float gridOffsetX = 10;
     public const float gridOffsetY = 5;
-
+    /// <summary>
+    /// returns the coordinates to a tile based on a passed in world position. Taken from https://catlikecoding.com/unity/tutorials/hex-map/ but adapted to square grid.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
     public static Vector2 GetTileFromPosition(Vector2 position)
     {
         float x = position.x / tileSize;

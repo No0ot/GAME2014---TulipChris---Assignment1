@@ -1,3 +1,12 @@
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 24, 2021
+//      File            : DetailsPanel.cs
+//      Description     : This script contains methods used for the details panel in the gameplay scene.
+//      History         :   v0.7 - Added Script and an enum to determine what setting the details panel should display along with getting and updating the window based on the target reference.
+//                          v0.75 - Added functionality for the build portion of the details panel
+//                          v0.9 - Added Functionality for the upgrade portion of the panel.
+//
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

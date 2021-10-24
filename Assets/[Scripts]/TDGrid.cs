@@ -1,7 +1,12 @@
-//********GAME2014 - MOBILE GAME DEV ASSIGNMENT 1*****************
-// CHRIS TULIP 100 818 050
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 5, 2021
+//      File            : TDGrid.cs
+//      Description     : Script for the generation and control of the gameplay grid. Taken from https://catlikecoding.com/unity/tutorials/hex-map/ but adapted to square grid.
+//      History         :   v0.5 - Creates the grid off of the tile prefab.
+//                          v0.7 - While creating tiles adds corresponding tiles to chunks.
+//                          v0.9 - Added variables to keep track of the starting tile and the ending tile for enemy pathfinding.
 //
-// A script for creating and managaging the playable grid. 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +43,9 @@ public class TDGrid : MonoBehaviour
         startTile.SetPathfindingState(PathfindingState.START);
         startTile.Refresh();
     }
-
+    /// <summary>
+    /// Creates the chunk prefabs that will control and contain the tiles.
+    /// </summary>
     void CreateChunks()
     {
         chunkList = new GridChunk[chunkCountX * chunkCountY];
@@ -53,7 +60,9 @@ public class TDGrid : MonoBehaviour
             }
         }    
     }
-
+    /// <summary>
+    /// Creates tiles keeping track of the x and y amounts to later use for the coordinates
+    /// </summary>
     void CreateTiles()
     {
         tileList = new Tile[tileCountX * tileCountY];
@@ -66,7 +75,12 @@ public class TDGrid : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Creates a tile from a prefab and sets the position of the tile along with its coordinates. It then sets the neighbours of the tile and adds the tile to a chunk
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="i"></param>
     void CreateTile(int x, int y, int i)
     {
         Vector2 position;
@@ -88,7 +102,12 @@ public class TDGrid : MonoBehaviour
 
         AddTileToChunk(x, y, newTile);
     }
-
+    /// <summary>
+    /// Adds passed in tile to a chunk.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="tile"></param>
     void AddTileToChunk(int x, int y, Tile tile)
     {
         int chunkX = x / Config.chunkSize;
@@ -99,7 +118,11 @@ public class TDGrid : MonoBehaviour
         int localY = y - chunkY * Config.chunkSize;
         chunk.AddTile(localX + localY * Config.chunkSize, tile);
     }
-
+    /// <summary>
+    /// Gets a tile from the tileList based off of a passed in mouse position
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
     public Tile GetTile(Vector2 position)
     {
         position = transform.InverseTransformPoint(position);
@@ -109,7 +132,11 @@ public class TDGrid : MonoBehaviour
         int index = iX + iY * 25;
         return tileList[index];
     }
-
+    /// <summary>
+    /// Gets a tile using passed in coordinates.
+    /// </summary>
+    /// <param name="coordinates"></param>
+    /// <returns></returns>
     public Tile GetTileFromCoordinates(Vector2 coordinates)
     {
         int iX = Mathf.RoundToInt(coordinates.x);
@@ -117,7 +144,11 @@ public class TDGrid : MonoBehaviour
         int index = iX + iY * 25;
         return tileList[index];
     }
-
+    /// <summary>
+    /// Gets a chunk from passed in coordinates.
+    /// </summary>
+    /// <param name="coordinate"></param>
+    /// <returns></returns>
     public GridChunk GetChunk(Vector2 coordinate)
     {
         int iX = Mathf.RoundToInt(coordinate.x);
@@ -125,7 +156,9 @@ public class TDGrid : MonoBehaviour
         int index = iX + iY * chunkCountX;
         return chunkList[index];
     }
-
+    /// <summary>
+    /// Resets the tile interact states and refreshes them.
+    /// </summary>
     public void ResetTileStates()
     {
         foreach(Tile tile in tileList)
@@ -135,7 +168,10 @@ public class TDGrid : MonoBehaviour
             tile.Refresh();
         }
     }
-
+    /// <summary>
+    /// returns the tileList.
+    /// </summary>
+    /// <returns></returns>
     public Tile[] GetTileList()
     {
         return tileList;

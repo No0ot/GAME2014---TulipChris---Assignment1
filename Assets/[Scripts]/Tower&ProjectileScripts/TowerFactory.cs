@@ -1,3 +1,10 @@
+//      Author          : Chris Tulip
+//      StudentID       : 100818050
+//      Date Modified   : October 18, 2021
+//      File            : TowerFactory.cs
+//      Description     : This script contains the factory pattern for instantiating objects of different tower types.
+//      History         :   v0.5 - Created the script along with the initial functions used for the functionality.
+//
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +23,11 @@ public class TowerFactory : MonoBehaviour
     {
         towerList = new List<GameObject>();
     }
+    /// <summary>
+    /// Creates a tower of the passed in type and returns a reference to it.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public GameObject CreateTower(TowerType type)
     {
         GameObject tempTower = null;
