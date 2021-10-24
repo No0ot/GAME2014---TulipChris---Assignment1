@@ -102,7 +102,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.55
 --- !u!114 &7618947543919113538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   type: 3
   targetTile: {fileID: 0}
   currentTile: {fileID: 0}
-  maxHealth: 100
+  maxHealth: 120
   currentHealth: 0
   armored: 1
   moveSpeed: 1

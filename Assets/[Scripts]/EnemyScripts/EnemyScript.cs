@@ -114,7 +114,7 @@ public class EnemyScript : MonoBehaviour
     {
         PlayerStats.Instance.gold += goldReward;
         PlayerStats.Instance.iron += ironReward;
-        PlayerStats.Instance.gold += steelReward;
+        PlayerStats.Instance.steel += steelReward;
     }
 
     void UpdateLifeBar()

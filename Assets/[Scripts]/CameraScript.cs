@@ -55,7 +55,18 @@ public class CameraScript : MonoBehaviour
         Vector3 position = transform.localPosition;
 
         position += new Vector3(direction.x * panSpeed, direction.y * panSpeed, 0f);
-        transform.localPosition = position;
+        transform.localPosition = ClampPosition(position);
+    }
+
+    Vector3 ClampPosition(Vector3 position)
+    {
+        float xMax = (grid.chunkCountX * Config.chunkSize - 0.5f) * Config.tileSize;
+        position.x = Mathf.Clamp(position.x, 0f, xMax);
+
+        float yMax = (grid.chunkCountY * Config.chunkSize - 1f) * Config.tileSize;
+        position.y = Mathf.Clamp(position.y, 0f, yMax);
+
+        return position;
     }
 
     void TouchInput()
